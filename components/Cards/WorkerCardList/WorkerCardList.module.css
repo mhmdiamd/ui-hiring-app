@@ -1,0 +1,36 @@
+.workerProfile {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: 2px solid #5e50a1;
+}
+
+.card {
+  min-width: 160px;
+}
+
+@media (max-width: 768px) {
+  .workerProfile {
+    height: 72px;
+    width: 72px;
+  }
+}
+
+@media (max-width: 575px) {
+  .workerProfile {
+    border: none;
+    border-radius: 4px;
+  }
+
+  .workerName {
+    font-size: 1em !important;
+  }
+
+  .cardBody {
+    text-align: center;
+    font-size: 1em !important;
+  }
+  .workerSkills {
+    justify-content: center;
+  }
+}
