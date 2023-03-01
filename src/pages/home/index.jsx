@@ -62,8 +62,8 @@ const LandingPage = ({ workers }) => {
           <div className="col-12 col-sm-7 col-md-6 p-3 ps-sm-5">
             <h2>Why should you look for talent in Gaworld</h2>
             <ul class="list-group">
-              {excess?.map((text) => (
-                <li class="list-group-item bg-transparent px-0 border-0">
+              {excess?.map((text, i) => (
+                <li key={i} class="list-group-item bg-transparent px-0 border-0">
                   <FontAwesomeIcon
                     className={"me-2 text-purple fs-5"}
                     icon={faCircleCheck}
@@ -89,7 +89,7 @@ const LandingPage = ({ workers }) => {
                 {programmingLanguages?.map((text, i) => {
                   if (i < 5) {
                     return (
-                      <li class="list-group-item bg-transparent px-0 border-0">
+                      <li key={i} class="list-group-item bg-transparent px-0 border-0">
                         <FontAwesomeIcon
                           className={"me-2 text-warning fs-5"}
                           icon={faCircleCheck}
@@ -105,7 +105,7 @@ const LandingPage = ({ workers }) => {
                 {programmingLanguages?.map((text, i) => {
                   if (i >= 5) {
                     return (
-                      <li class="list-group-item bg-transparent px-0 border-0">
+                      <li key={i} class="list-group-item bg-transparent px-0 border-0">
                         <FontAwesomeIcon
                           className={"me-2 text-warning fs-5"}
                           icon={faCircleCheck}
@@ -151,7 +151,7 @@ const LandingPage = ({ workers }) => {
           className="mySwiper p-3"
         >
           {workers.data.data.map((worker) => (
-            <SwiperSlide>
+            <SwiperSlide key={worker.id}>
               <CardOpinion key={worker.id} data={worker} />
             </SwiperSlide>
           ))}
