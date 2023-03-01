@@ -5,9 +5,10 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-const CardExperience = ({ data, photo, descriptionVisibility }) => {
+const CardExperience = ({ data, photo, descriptionVisibility, id }) => {
   return (
     <div
+      key={id}
       className={`${style.card} card py-3 px-2 border-0 rounded-0 min-w-100`}
     >
       <div className="row">
@@ -33,7 +34,13 @@ const CardExperience = ({ data, photo, descriptionVisibility }) => {
                 <span className={`ms-2`}>6 Months</span>
               </span>
             </div>
-            <p className={`${style.description} ${descriptionVisibility ? 'd-none' : ''} mt-3`}>{data.description}</p>
+            <p
+              className={`${style.description} ${
+                descriptionVisibility ? "d-none" : ""
+              } mt-3`}
+            >
+              {data.description}
+            </p>
           </div>
         </div>
       </div>

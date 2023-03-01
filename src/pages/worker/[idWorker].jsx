@@ -49,7 +49,7 @@ const Index = () => {
             <>
               {/* Worker Portofolio */}
               {worker?.portofolios?.map((portofolio) => (
-                <div className="col-4">
+                <div key={portofolio.id} className="col-4">
                   <CardPortofolio
                     photo={"/portofolios/portofolio1 (2).png"}
                     data={portofolio}
@@ -76,9 +76,9 @@ const Index = () => {
           ) : (
             <>
               {worker?.experiences?.map((experience) => (
-                <div className="col-12">
+                <div className="col-12" key={experience.id}>
                   <CardExperience
-                    key={experience.id}
+                    id={experience.id}
                     data={experience}
                     photo={"/portofolios/portofolio1 (1).png"}
                   />

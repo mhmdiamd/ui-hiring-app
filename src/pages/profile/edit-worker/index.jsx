@@ -211,9 +211,9 @@ const EditWorker = () => {
         <div className="row">
           <div className="col-12">
             {worker?.experiences?.map((experience, i) => {
-              if(i < 3) {
+              if (i < 3) {
                 return (
-                  <div className="col-12">
+                  <div className="col-12" key={i}>
                     <CardExperience
                       key={experience.id}
                       data={experience}
@@ -221,7 +221,7 @@ const EditWorker = () => {
                       photo={"/portofolios/portofolio1 (1).png"}
                     />
                   </div>
-                )
+                );
               }
             })}
           </div>
