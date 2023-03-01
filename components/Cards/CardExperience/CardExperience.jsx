@@ -5,14 +5,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-const CardExperience = ({
-  photo,
-  jobDesk,
-  companyName,
-  careerStart,
-  careerEnd,
-  description,
-}) => {
+const CardExperience = ({ data, photo, descriptionVisibility }) => {
   return (
     <div
       className={`${style.card} card py-3 px-2 border-0 rounded-0 min-w-100`}
@@ -20,7 +13,7 @@ const CardExperience = ({
       <div className="row">
         <div className="col-12 col-sm-3 col-md-auto d-flex justify-content-center">
           <img
-            src={photo}
+            src={data?.photo || photo}
             className={`${style.workerProfile} img-fluid`}
             alt="..."
           />
@@ -30,22 +23,17 @@ const CardExperience = ({
             className={`${style.cardBody} card-body pt-0 px-0 d-flex flex-column`}
           >
             <span className={`${style.workerName} fs-5 fw-semibold`}>
-              Sotware Engineer
+              {data.position}
             </span>
-            <span>Tokopedia</span>
+            <span>{data.company_name}</span>
             <div className={`d-none d-sm-block text-secondary`}>
               <span className={`text-muted`}>
                 <FontAwesomeIcon Icon={faLocationDot} /> July 2019 - January
                 2020
-                <span>6 Months</span>
+                <span className={`ms-2`}>6 Months</span>
               </span>
             </div>
-            <p className={`${style.description} mt-3`}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
+            <p className={`${style.description} ${descriptionVisibility ? 'd-none' : ''} mt-3`}>{data.description}</p>
           </div>
         </div>
       </div>

@@ -2,18 +2,16 @@ import AuthenticationLayout from "components/templates/Authentication/Authentica
 import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import Link from "next/link";
-import {
-  showLoading,
-  failedLoading,
-  stopLoading,
-} from "@/common/loadingHandler";
+import { showLoading } from "@/common/loadingHandler";
 import { useRouter } from "next/router";
 import { useWorkerLoginMutation } from "@/features/auth/worker/workerApi";
-import { errorChecking } from "@/common/errorChecking";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/app/api/authSlice";
 
 const WorkerLogin = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [loginWorker, { isLoading, isSuccess, isError, error }] =
     useWorkerLoginMutation();
   const [data, setData] = useState({
@@ -32,11 +30,13 @@ const WorkerLogin = () => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-    await loginWorker({ data });
+    const res = await loginWorker(data);
+    console.log(res)
+    dispatch(setCredentials({ user: res.data.data, token: res.data.token }));
   };
 
   const redirectWeb = () => {
-    return router.push("/");
+    return router.push("/home");
   };
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const WorkerLogin = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mbs-3" controlId="formGroupPassword">
+        <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             className={"bg-light py-2"}

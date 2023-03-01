@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link'
 
-const WorkerCardList = () => {
+const WorkerCardList = ({data}) => {
   return (
     <div className={`${style.card} card py-3 px-2 border-0 border-bottom shadow rounded-0 min-w-100`}>
       <div className="row">
@@ -13,22 +13,22 @@ const WorkerCardList = () => {
         </div>
         <div className="col-12 col-sm-9 col-md ">
           <div className={`${style.cardBody} card-body px-0 d-flex flex-column`}>
-            <span className={`${style.workerName} fs-5 fw-semibold`}>Muhamad Ilham Darmawan</span>
-            <span className="text-secondary">Web Developer</span>
+            <span className={`${style.workerName} fs-5 fw-semibold`}>{data?.name}</span>
+            <span className="text-secondary">{data?.job_desk || 'Software Engineer'}</span>
             <span className={`d-none d-sm-block text-secondary`}>
               <small className={`text-muted`}>
-                <FontAwesomeIcon Icon={faLocationDot} /> Banten, Indonesia
+                <FontAwesomeIcon Icon={faLocationDot} /> {data?.address ? data?.address : 'Banten, Indonesia' }
               </small>
             </span>
             <div className={`${style.workerSkills} skills mt-2 d-flex flex-wrap gap-2`}>
-              <Link className={'text-decoration-none py-0 text-center text-light btn btn-warning pb-1'} href={''}>Java</Link>
-              <Link className={'text-decoration-none py-0 text-light btn btn-warning pb-1'} href={''}>PHP</Link>  
-             
+              {data?.worker_skills?.map((data, i) => (
+                <Link key={i} className={'text-decoration-none py-0 text-center text-light btn btn-warning pb-1'} href={''}>{data.skill}</Link>
+              ))}
             </div>
           </div>
         </div>
         <div className="col-9 d-none offset-sm-3 offset-md-0 col-md-auto d-sm-flex align-items-center">
-          <Link href={'/profile'} className={'btn text-light bg-purple me-5'}>See Profile</Link>
+          <Link href={`/worker/${data.id}`} className={'btn text-light bg-purple me-5'}>See Profile</Link>
         </div>
       </div>
     </div>

@@ -1,20 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell, faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import {useDispatch} from 'react-redux'
+import { logout } from "@/app/api/authSlice";
+
+import {
+  faShoppingCart,
+  faFilter,
+  faMagnifyingGlass,
+  faRightFromBracket,
+  faCaretDown,
+  faUser,
+  faTableColumns,
+} from "@fortawesome/free-solid-svg-icons";
+
 
 const Navbar = () => {
+  const dispatch = useDispatch()
   const router = useRouter();
+  const [auth, setAuth] = useState(false);
+
+  const logoutHandler = (e) => {
+    if(confirm('are you sure to logout?')){
+      dispatch(logout())
+      return router.push('/login/worker')
+    }
+  }
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      setAuth(true)
+    }
+  }, [auth])
+
   return (
     <nav
-      className="navbar shadow navbar-expand-lg d-flex flex-column pb-0 sticky-top"
+      className="navbar navbar-expand-lg d-flex flex-column pb-0 sticky-top"
       style={{ backgroundColor: "#fff" }}
     >
       <div className="container pb-2">
         {/* <!-- Nav Logo --> */}
         <Link
           className="navbar-brand ps-0 d-flex align-items-center me-4 btn fs-5 color-trinary"
-          href="/"
+          href="/home"
         >
           <img
             src={"/navbar/navbarLogo.png"}
@@ -26,72 +58,53 @@ const Navbar = () => {
         {/* <!-- End Nav Logo --> */}
 
         {/* <!-- Nav Menu Mobile Mode --> */}
-        <div className="d-flex d-lg-none gap-2 align-items-center">
-          <Link
-            href="http://127.0.0.1:5500/Pages/my-bag/my-bag.html"
-            className="btn fs-5 color-trinary"
-          >
-            <i className="fa-solid fa-cart-shopping"></i>
-          </Link>
+        {auth ? (
+                  <div className="d-flex gap-3 ms-auto">
+                  <Link
+                    href=""
+                    className="btn fs-5 color-trinary btn fs-5 color-trinary"
+                  >
+                    <FontAwesomeIcon
+                      className="color-trinary"
+                      icon={faEnvelope}
+                    ></FontAwesomeIcon>
+                  </Link>
+        
+                  
+                  <Link href="" className="color-trinary btn fs-5">
+                    <FontAwesomeIcon
+                      className="color-trinary"
+                      icon={faBell}
+                    ></FontAwesomeIcon>
+                  </Link>
 
-          <Link
-            href="/login/worker"
-            className="btn bg-purple py-0 text-light py-1"
-          >
-            Login
-          </Link>
-
-          <Link
-            href="/register/worker"
-            className="btn btn-signup border border-1 btn color-trinary py-0 color-trinary py-1"
-          >
-            Sign up
-          </Link>
-        </div>
-        {/* <!-- End Nav menu Mobile Mode --> */}
-
-        <div className="navbar-collapse">
-          {/* <!-- Search and Filtering --> */}
-          {/* <div className="col-12 col-lg-7 d-flex mt-md-0">
-            <div className="col-12">
-              <div className="input-form d-flex position-relative me-2">
-                <div className="search-input position-relative w-100 d-flex">
-                  <input className="form-control me-2 rounded-pill w-100" type="text" placeholder="Search" aria-label="Search" value={""} onChange={(e) => setSearch(e.target.value)} />
-
-                  <button className="btn position-absolute search-btn me-2 " onClick={searchSubmitHandler} type="submit">
-                    <FontAwesomeIcon className="color-trinary" icon={faMagnifyingGlass} />
+                  <button className="btn bg-transparent border-0 color-trinary" onClick={logoutHandler}>
+                    Logout
                   </button>
                 </div>
-                <div className="filter">
-                  <button className="btn border-trinary border shadow-0" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <FontAwesomeIcon className="color-trinary" icon={faFilter}></FontAwesomeIcon>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div> */}
-          {/* <!-- End Search and Filtering --> */}
-
-          {/* <!-- Nav Menu Desktop Mode --> */}
-          <div className="d-lg-flex d-none gap-3 ms-auto align-items-center">
+        ) : (
+          <div className="d-flex gap-2 align-items-center">
             <Link
-              href="/customers/login"
-              className="btn bg-purple btn py-0 text-light py-1 px-3"
+              href="/login/worker"
+              className="btn bg-purple py-0 text-light py-1"
             >
               Login
             </Link>
 
             <Link
-              href="/customers/register"
-              className="btn btn-signup border border-1 btn color-trinary py-0 color-trinary py-1 px-3"
+              href="/register/worker"
+              className="btn btn-signup border border-1 btn color-trinary py-0 color-trinary py-1"
             >
-              Register
+              Sign up
             </Link>
           </div>
-          {/* <!-- End Nav Menu Desktops Mode --> */}
-        </div>
+        )}
+
+       
+        {/* <!-- End Nav menu Mobile Mode --> */}
+
       </div>
-      {router?.pathname == "/home" && (
+      {router?.pathname == "/worker" && (
         <div className="row bg-purple w-100 pb-3 pt-2">
           <div className="col-12">
             <div className={"container"}>
@@ -105,5 +118,7 @@ const Navbar = () => {
     </nav>
   );
 };
+
+
 
 export default Navbar;

@@ -1,12 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileLayout from "components/templates/Profile/ProfileLayout";
 import CardSection from "components/Cards/CardSection/CardSection";
 import EditProfileWorker from "components/Cards/CardEditProfile/CardEditProfile";
 import InputFormHire from "components/Form/InputFormHire/InputFormHire";
 import { workerForm, workerExperienceForm } from "./workerForm";
 import Form from "react-bootstrap/Form";
+import { useCreateExperienceMutation } from "@/features/worker/experience/experienceApi";
+import CardExperience from "../../../../components/Cards/CardExperience/CardExperience";
+import { useCreateWorkerSkillMutation } from "@/features/worker/worker_skill/workerSkillApi";
+import { useCreatePortofolioMutation } from "@/features/worker/portofolio/portofolioApi";
+import { useGetWorkerByIdQuery } from "@/features/worker/workerApi";
+import {
+  showLoading,
+  successLoading,
+  failedLoading,
+} from "@/common/loadingHandler";
 
 const EditWorker = () => {
+  const { data: worker, isLoadingWorkerData } = useGetWorkerByIdQuery(
+    "cbc3b4b0-b13d-41ee-a436-c0be8f3dd211"
+  );
+  const [dataWorker, setDataWorker] = useState({});
+  const [
+    createExperience,
+    {
+      isSuccess: isSuccessExperience,
+      isLoading: isLoadingExperience,
+      isError: isErrorExperience,
+    },
+  ] = useCreateExperienceMutation();
+  const [
+    createPortofolio,
+    {
+      isSuccess: isSuccessPortofolio,
+      isLoading: isLoadingPortofolio,
+      error: errorPortofolio,
+      isError: isErrorPortofolio,
+    },
+  ] = useCreatePortofolioMutation();
+
+  const [
+    createWorkerSkill,
+    {
+      isSuccess: isSuccessWorkerSkill,
+      isLoading: isLoadingWorkerSkill,
+      error: errorWorkerSkill,
+      isError: isErrorWorkerSkill,
+    },
+  ] = useCreateWorkerSkillMutation();
+
   const [workerData, setWorkerData] = useState({
     name: "",
     job_desk: "",
@@ -14,6 +56,7 @@ const EditWorker = () => {
     workplace: "",
     description: "",
   });
+
   const [workerSkill, setWorkerSkill] = useState("");
 
   const [workerExperienceData, setWorkerExperienceData] = useState({
@@ -31,23 +74,92 @@ const EditWorker = () => {
     photo: "",
   });
 
-  const submitHandler = (e) => {
+  const changeHandler = (e, callback) => {
+    callback((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  const submitHandler = async (e) => {
     e.preventDefault();
   };
 
-  const submitHandlerExperience = (e) => {
+  const submitHandlerExperience = async (e) => {
     e.preventDefault();
+    await createExperience({
+      data: {
+        ...workerExperienceData,
+        career_start: undefined,
+        career_end: undefined,
+      },
+    });
   };
 
-  const submitHandlerSkill = (e) => {
+  const submitHandlerSkill = async (e) => {
     e.preventDefault();
+    await createWorkerSkill({ skill: workerSkill });
+    setWorkerSkill("");
   };
 
-  const submitHandlerPortofolio = (e) => {
+  const submitHandlerPortofolio = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    for (let attr in workerPortofolio) {
+      formData.append(attr, workerPortofolio[attr]);
+    }
+    await createPortofolio(formData);
   };
+
+  useEffect(() => {
+    if (isLoadingExperience || isLoadingWorkerSkill || isLoadingPortofolio) {
+      showLoading("Please wait");
+    }
+
+    if (isSuccessExperience || isSuccessWorkerSkill || isSuccessPortofolio) {
+      if (isSuccessWorkerSkill) {
+        successLoading("Success create Skill!");
+      } else if (isSuccessPortofolio) {
+        successLoading("Success create Portofolio!");
+        setWorkerPortofolio({
+          application_name: "",
+          link_repository: "",
+          type: "",
+          photo: "",
+        });
+      } else {
+        successLoading("Success create Experience!");
+        setWorkerExperienceData({
+          position: "",
+          company_name: "",
+          career_start: "",
+          career_end: "",
+          description: "",
+        });
+      }
+    }
+    if (isErrorExperience || isErrorWorkerSkill || isErrorPortofolio) {
+      failedLoading("Failed to create!");
+    }
+  }, [
+    isLoadingExperience,
+    isSuccessExperience,
+    isErrorExperience,
+    isLoadingWorkerSkill,
+    isSuccessWorkerSkill,
+    isErrorWorkerSkill,
+    isLoadingPortofolio,
+    isSuccessPortofolio,
+    isErrorPortofolio,
+  ]);
   return (
-    <ProfileLayout leftside={<EditProfileWorker />}>
+    <ProfileLayout
+      classLeft={`col-12 col-lg-4`}
+      classRight={`col-12 col-lg-8`}
+      leftside={<EditProfileWorker />}
+    >
       <CardSection header={true} title={"Biodata"}>
         <Form onSubmit={submitHandler}>
           <div className="row">
@@ -78,7 +190,7 @@ const EditWorker = () => {
                 type={"text"}
                 value={workerSkill}
                 placeholder={"Enter Your Skill"}
-                onchange={(e) => changeHandler(e)}
+                onchange={(e) => setWorkerSkill(e.target.value)}
                 required={true}
               />
             </div>
@@ -96,6 +208,24 @@ const EditWorker = () => {
       </CardSection>
 
       <CardSection header={true} title={"Experience"}>
+        <div className="row">
+          <div className="col-12">
+            {worker?.experiences?.map((experience, i) => {
+              if(i < 3) {
+                return (
+                  <div className="col-12">
+                    <CardExperience
+                      key={experience.id}
+                      data={experience}
+                      descriptionVisibility={true}
+                      photo={"/portofolios/portofolio1 (1).png"}
+                    />
+                  </div>
+                )
+              }
+            })}
+          </div>
+        </div>
         <Form onSubmit={submitHandlerExperience}>
           <div className={"row pb-2 border-1 border-bottom"}>
             {workerExperienceForm.map((experience, i) => (
@@ -110,7 +240,7 @@ const EditWorker = () => {
                   type={experience.type}
                   value={workerExperienceData[experience.name]}
                   placeholder={experience.placeholder}
-                  onchange={(e) => changeHandler(e)}
+                  onchange={(e) => changeHandler(e, setWorkerExperienceData)}
                   required={true}
                 />
               </div>
@@ -140,18 +270,18 @@ const EditWorker = () => {
                 type={"text"}
                 value={workerPortofolio.application_name}
                 placeholder={`Enter Your Application Name`}
-                onchange={(e) => changeHandler(e)}
+                onchange={(e) => changeHandler(e, setWorkerPortofolio)}
                 required={true}
               />
             </div>
             <div className={`col-12`}>
               <InputFormHire
-                title={"Application Name"}
-                name={"application_name"}
+                title={"Repository Link"}
+                name={"link_repository"}
                 type={"text"}
-                value={workerPortofolio.application_name}
-                placeholder={`Enter Your Application Name`}
-                onchange={(e) => changeHandler(e)}
+                value={workerPortofolio.link_repository}
+                placeholder={`Enter Your Repository Link`}
+                onchange={(e) => changeHandler(e, setWorkerPortofolio)}
                 required={true}
               />
             </div>
@@ -166,6 +296,13 @@ const EditWorker = () => {
                         label="Mobile App"
                         name="group1"
                         type={type}
+                        value={"mobile"}
+                        onChange={(e) =>
+                          setWorkerPortofolio((prev) => ({
+                            ...prev,
+                            type: e.target.value,
+                          }))
+                        }
                         id={`inline-${type}-1`}
                       />
                     </span>
@@ -175,12 +312,33 @@ const EditWorker = () => {
                         label="Web App"
                         name="group1"
                         type={type}
+                        value={"web"}
+                        onChange={(e) =>
+                          setWorkerPortofolio((prev) => ({
+                            ...prev,
+                            type: e.target.value,
+                          }))
+                        }
                         id={`inline-${type}-2`}
                       />
                     </span>
                   </div>
                 ))}
               </div>
+            </div>
+            <div className={`col-12`}>
+              <InputFormHire
+                title={"Portofolio Image"}
+                name={"photo"}
+                type={"file"}
+                onchange={(e) =>
+                  setWorkerPortofolio((prev) => ({
+                    ...prev,
+                    photo: e.target.files[0],
+                  }))
+                }
+                required={true}
+              />
             </div>
           </div>
 

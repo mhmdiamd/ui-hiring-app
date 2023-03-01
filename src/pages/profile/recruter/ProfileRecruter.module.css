@@ -1,0 +1,30 @@
+.btnMenu {
+  box-sizing: border-box;
+  border-color: #5e50a1 !important;
+}
+
+.bgRecruter {
+  height: 200px;
+}
+
+.imageBackground {
+  width: 100% !important;
+  height: 200px !important;
+}
+
+.rowContent {
+  position: relative;
+  top: -80px;
+}
+.imageProfile {
+  height: 150px;
+  widht: 150px;
+  clip-path: circle(50% at 50% 50%);
+}
+
+.editText {
+  cursor: pointer;
+  position: absolute;
+  bottom: 5px;
+  right: 20px;
+}

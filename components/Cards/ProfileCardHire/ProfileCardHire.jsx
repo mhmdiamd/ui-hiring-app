@@ -30,8 +30,8 @@ const ProfileCard = () => {
         </Card.Text>
         <p className={"mt-4 text-muted"}>
           Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text
-          ever since the 1500s.
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s.
         </p>
 
         <span className={"fs-4 fw-semibold d-block mt-3"}>Skills</span>

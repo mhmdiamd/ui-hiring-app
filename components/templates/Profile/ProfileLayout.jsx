@@ -4,7 +4,7 @@ import style from "./ProfileLayout.module.css";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
-const ProfileLayout = ({ children, leftside }) => {
+const ProfileLayout = ({ children, leftside, classLeft, classRight }) => {
   const { pathname } = useRouter();
   const initialPathName = pathname.split("/")[1];
 
@@ -17,8 +17,8 @@ const ProfileLayout = ({ children, leftside }) => {
         className={`${style.profileContainer} container position-relative pt-5`}
       >
         <div className={"row"}>
-          <div className={`${style.leftSide} col-4`}>{leftside}</div>
-          <div className={`${style.leftSide} col-8`}>{children}</div>
+          <div className={`${style.leftSide} ${classLeft}`}>{leftside}</div>
+          <div className={`${style.leftSide} ${classRight}`}>{children}</div>
         </div>
       </div>
     </BaseTemplate>

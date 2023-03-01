@@ -30,7 +30,10 @@ const Index = () => {
   };
 
   return (
-    <ProfileLayout leftside={<ProfileCardHire />}>
+    <ProfileLayout
+     classLeft={`col-12 col-lg-4`}
+     classRight={`col-12 col-lg-8`}
+     leftside={<ProfileCardHire />}>
       <div className="row">
         <div className="col-11 offset-sm-1">
           <h2>Message Muhamad Ilham Darmawan</h2>

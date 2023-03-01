@@ -5,17 +5,16 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL_ENDPOINT,
   credentials: 'include',
   prepareHeaders: (headers, {getState}) => {
-    console.log(getState())
-    // if(getState()?.auth?.token){
-    //   const token = getState().auth.token
-    //   headers.set('authorization', token)
-    // }  
+    if(getState()?.auth?.token){
+      const token = getState().auth.token
+      headers.set('authorization', token)
+    }  
 
-    // if(localStorage.token('token')) {
-    //   headers.set('authorization', localStorage.token('token'))
-    // }
+    if(localStorage.getItem('token')) {
+      headers.set('authorization', localStorage.getItem('token'))
+    }
 
-    // return headers
+    return headers
   }
 })
 
