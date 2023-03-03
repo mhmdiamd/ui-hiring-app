@@ -14,6 +14,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 // import required  
 import { Pagination } from "swiper";
+import Image from "next/image";
 
 const LandingPage = ({ workers }) => {
   return (
@@ -40,10 +41,12 @@ const LandingPage = ({ workers }) => {
             </Link>
           </div>
           <div className="col-5 offset-md-1 d-md-flex offset-md-1 justify-content-end d-none">
-            <img
+            <Image
               src={"/landing/photo1.png"}
               className={`${style.staticImage} img-fluid position-relative`}
               alt="static-photo"
+              width={400}
+              height={400}
             />
           </div>
         </div>
@@ -52,10 +55,12 @@ const LandingPage = ({ workers }) => {
       <SectionContent className={`${style.bgLight} mt-3 mt-sm-5`}>
         <div className="row py-0 py-sm-4">
           <div className="col-12 col-md-5">
-            <img
+            <Image
               src={"/landing/photo2.png"}
               alt="static-photo1"
               className={`${style.staticImage} w-100 position-relative img-fluid`}
+              width={400}
+              height={400}
             />
           </div>
           <div className="col-12 col-sm-7 col-md-6 p-3 ps-sm-5">
@@ -127,10 +132,12 @@ const LandingPage = ({ workers }) => {
             </div>
           </div>
           <div className="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-end">
-            <img
+            <Image
               src={"/landing/photo3.png"}
               className={`${style.staticImage} w-100 img-fluid position-relative`}
               alt="static-photo2"
+              width={400}
+              height={400}
             />
           </div>
         </div>
