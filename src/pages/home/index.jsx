@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import { excess, programmingLanguages } from "./homeData.jsx";
+import { excess, programmingLanguages } from "../../../lib/homeData.jsx";
 
 // Import Swiper styles
 import "swiper/css";
