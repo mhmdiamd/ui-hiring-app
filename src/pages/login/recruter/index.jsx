@@ -32,9 +32,7 @@ const RecruterLogin = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     const res = await loginRecruter(data);
-    if (res?.statusCode == 200) {
-      dispatch(setCredentials({ user: res.data.data, token: res.data.token }));
-    }
+    dispatch(setCredentials({ user: res.data.data, token: res.data.token }));
   };
 
   const redirectWeb = () => {

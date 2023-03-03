@@ -5,61 +5,35 @@ import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-const ProfileCard = () => {
+const ProfileCard = ({data}) => {
   return (
     <Card className={"border-0 shadow-sm px-3 py-3"}>
       <Card.Img
         className={`${style.userPhoto} mx-auto img-fluid rounded-circle`}
         variant="top"
-        src="/home/userProfile.jpg"
+        src={data?.photo == 'photodefault.jpg' ? '/photodefault.png' : data?.photo}
       />
-      <span
-        className={`${style.editUser} d-block text-center text-secondary pt-1`}
-      >
-        <FontAwesomeIcon icon={faPen} /> Edit
-      </span>
+ 
       <Card.Body>
-        <Card.Title>Muhamad Ilham Darmawan</Card.Title>
+        <Card.Title>{data?.name}</Card.Title>
         <p className="mb-2">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+         {data?.description}
         </p>
         <Card.Text className={`text-muted`}>
           <FontAwesomeIcon className={`mt-3 me-2`} icon={faLocationDot} />
-          Banten, Indonesia
+          {data?.address ? data.address : 'indonesia'}
         </Card.Text>
         <p className={"mt-4 text-muted"}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s.
+          {data?.description}
         </p>
 
         <span className={"fs-4 fw-semibold d-block mt-3"}>Skills</span>
         <div className={`d-flex flex-wrap gap-2 mt-2`}>
-          <Button className={"btn btn-warning text-light"} href="#">
-            PHP
-          </Button>
-          <Button className={"btn btn-warning text-light"} href="#">
-            Java
-          </Button>
-          <Button className={"btn btn-warning text-light"} href="#">
-            Javascript
-          </Button>
-          <Button className={"btn btn-warning text-light"} href="#">
-            Python
-          </Button>
-          <Button className={"btn btn-warning text-light"} href="#">
-            Golang
-          </Button>
-          <Button className={"btn btn-warning text-light"} href="#">
-            C++
-          </Button>
-          <Button className={"btn btn-warning text-light"} href="#">
-            C
-          </Button>
-          <Button className={"btn btn-warning text-light"} href="#">
-            C#
-          </Button>
+          {data?.worker_skills?.map((skill, i) => (
+            <Button key={i} className={"btn btn-warning text-light"} href="#">
+              {skill.skill}
+            </Button>
+          ))}  
         </div>
       </Card.Body>
     </Card>

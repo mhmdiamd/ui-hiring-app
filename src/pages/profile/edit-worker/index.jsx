@@ -9,18 +9,53 @@ import { useCreateExperienceMutation } from "@/features/worker/experience/experi
 import CardExperience from "../../../../components/Cards/CardExperience/CardExperience";
 import { useCreateWorkerSkillMutation } from "@/features/worker/worker_skill/workerSkillApi";
 import { useCreatePortofolioMutation } from "@/features/worker/portofolio/portofolioApi";
-import { useGetWorkerByIdQuery } from "@/features/worker/workerApi";
+import { useGetWorkerByIdQuery, useUpdateWorkerByIdMutation } from "@/features/worker/workerApi";
+import Swal from 'sweetalert2'
 import {
   showLoading,
   successLoading,
   failedLoading,
 } from "@/common/loadingHandler";
+import { useSelector } from "react-redux";
 
 const EditWorker = () => {
-  const { data: worker, isLoadingWorkerData } = useGetWorkerByIdQuery(
-    "cbc3b4b0-b13d-41ee-a436-c0be8f3dd211"
-  );
-  const [dataWorker, setDataWorker] = useState({});
+  const user = useSelector(state => state.auth.user)
+  const { data: worker, isLoading: isLoadingFetchWorker, isSuccess: isSuccessFetchWorker } = useGetWorkerByIdQuery(user?.id, {skip : user ? false : true});
+  const [updateWorkerById, {isLoading: isLoadingUpdateWorker, isSuccess: isSuccessUpdateWorker, isError: isErrorUpdateWorker}] = useUpdateWorkerByIdMutation()
+
+  const [dataWorker, setDataWorker] = useState({
+    name: "",
+    job_desk : "",
+    address: "",
+    workplace: "",
+    description: "",
+    phone: "",
+    photo: "",
+    active_email : "",
+    worker_category: "",
+    instagram: "",
+    github: "",
+    gitlab: ""
+  });
+
+  useEffect(() => {
+    if(isSuccessFetchWorker){
+      setDataWorker(prev => {
+        let data = {}
+        for(let attr in dataWorker) {
+          data = {
+            ...data,
+            [attr] : worker[attr]
+          }  
+        }
+        console.log(data)
+        return data
+      })
+    }
+    console.log(dataWorker)
+  }, [isLoadingFetchWorker])
+
+
   const [
     createExperience,
     {
@@ -49,16 +84,7 @@ const EditWorker = () => {
     },
   ] = useCreateWorkerSkillMutation();
 
-  const [workerData, setWorkerData] = useState({
-    name: "",
-    job_desk: "",
-    address: "",
-    workplace: "",
-    description: "",
-  });
-
   const [workerSkill, setWorkerSkill] = useState("");
-
   const [workerExperienceData, setWorkerExperienceData] = useState({
     position: "",
     company_name: "",
@@ -75,6 +101,7 @@ const EditWorker = () => {
   });
 
   const changeHandler = (e, callback) => {
+    console.log(dataWorker)
     callback((prev) => {
       return {
         ...prev,
@@ -82,6 +109,10 @@ const EditWorker = () => {
       };
     });
   };
+
+  const updateHandler = async (e) => {
+    await updateWorkerById({id : user?.id, data: dataWorker})
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -113,12 +144,13 @@ const EditWorker = () => {
     await createPortofolio(formData);
   };
 
+
   useEffect(() => {
-    if (isLoadingExperience || isLoadingWorkerSkill || isLoadingPortofolio) {
+    if (isLoadingExperience || isLoadingWorkerSkill || isLoadingPortofolio || isLoadingFetchWorker || isLoadingUpdateWorker) {
       showLoading("Please wait");
     }
 
-    if (isSuccessExperience || isSuccessWorkerSkill || isSuccessPortofolio) {
+    if (isSuccessExperience || isSuccessWorkerSkill || isSuccessPortofolio || isSuccessUpdateWorker) {
       if (isSuccessWorkerSkill) {
         successLoading("Success create Skill!");
       } else if (isSuccessPortofolio) {
@@ -129,8 +161,8 @@ const EditWorker = () => {
           type: "",
           photo: "",
         });
-      } else {
-        successLoading("Success create Experience!");
+      } else if(isSuccessExperience){
+        successLoading("Success!");
         setWorkerExperienceData({
           position: "",
           company_name: "",
@@ -138,11 +170,14 @@ const EditWorker = () => {
           career_end: "",
           description: "",
         });
+      } else {
+        successLoading("Success!");
       }
     }
-    if (isErrorExperience || isErrorWorkerSkill || isErrorPortofolio) {
+    if (isErrorExperience || isErrorWorkerSkill || isErrorPortofolio || isErrorUpdateWorker) {
       failedLoading("Failed to create!");
     }
+
   }, [
     isLoadingExperience,
     isSuccessExperience,
@@ -153,12 +188,24 @@ const EditWorker = () => {
     isLoadingPortofolio,
     isSuccessPortofolio,
     isErrorPortofolio,
+    isLoadingFetchWorker,
+    isSuccessFetchWorker,
+    isSuccessUpdateWorker,
+    isLoadingUpdateWorker,
+    isErrorUpdateWorker,
   ]);
+
+  useEffect(() => {
+    
+    if(isSuccessFetchWorker) {
+      Swal.close()
+    }
+  }, [isSuccessFetchWorker])
   return (
     <ProfileLayout
       classLeft={`col-12 col-lg-4`}
       classRight={`col-12 col-lg-8`}
-      leftside={<EditProfileWorker />}
+      leftside={<EditProfileWorker data={worker} onclick={(e) => updateHandler(e)}/>}
     >
       <CardSection header={true} title={"Biodata"}>
         <Form onSubmit={submitHandler}>
@@ -169,9 +216,9 @@ const EditWorker = () => {
                   title={worker.title}
                   name={worker.name}
                   type={worker.type}
-                  value={workerData[worker.name]}
+                  value={dataWorker[worker.name]}
                   placeholder={worker.placeholder}
-                  onchange={(e) => changeHandler(e)}
+                  onchange={(e) => changeHandler(e, setDataWorker)}
                   required={true}
                 />
               </div>
@@ -183,7 +230,7 @@ const EditWorker = () => {
       <CardSection header={true} title={"Skill"}>
         <Form onSubmit={submitHandlerSkill}>
           <div className={"row"}>
-            <div className={"col-10"}>
+            <div className={"col-8 col-md-10"}>
               <InputFormHire
                 title={"Skill"}
                 name={"skill"}
@@ -194,7 +241,7 @@ const EditWorker = () => {
                 required={true}
               />
             </div>
-            <div className={"col-2 d-flex align-items-end"}>
+            <div className={"col-4 col-md-2 d-flex align-items-end"}>
               <InputFormHire
                 className={
                   "btn btn-warning text-light border-2 fw-semibold w-100"

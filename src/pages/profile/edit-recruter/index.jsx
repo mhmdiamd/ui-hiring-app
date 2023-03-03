@@ -1,26 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileLayout from "components/templates/Profile/ProfileLayout";
 import CardSection from "components/Cards/CardSection/CardSection";
 import CardEditProfile from "components/Cards/CardEditProfile/CardEditProfile";
 import InputFormHire from "components/Form/InputFormHire/InputFormHire";
 import Form from "react-bootstrap/Form";
+import {recruterForm} from './recruterForm'
+import { useGetRecruterByIdQuery, useUpdateRecruterByIdMutation } from "@/features/recruter/recruterApi";
+import { useSelector } from "react-redux";
+import Swal from 'sweetalert2'
+import {
+  showLoading,
+  successLoading,
+  failedLoading,
+} from "@/common/loadingHandler";
 
 const EditRecruter = () => {
-  const [data, setData] = useState({
+  const user = useSelector(state => state.auth.user)
+  const { data: recruter, isLoading: isLoadingFetchRecruter, isSuccess: isSuccessFetchRecruter } = useGetRecruterByIdQuery(user?.id, {skip : user ? false : true});
+  const [updateRecruterById, {isLoading: isLoadingUpdateRecruter, isSuccess: isSuccessUpdateRecruter, isError: isErrorUpdateRecruter}] = useUpdateRecruterByIdMutation()
+  
+  const [dataRecruter, setDataRecruter] = useState({
     company_name: "",
-    business: "",
-    city: "",
+    company_field: "",
+    address: "",
     description: "",
     email: "",
-    phone: "0",
+    phone: "",
     instagram: "",
     linkedin: "",
     photo: "",
   });
 
   const changeHandler = (e) => {
-    console.log(data);
-    setData((prev) => {
+    console.log(dataRecruter)
+    setDataRecruter((prev) => {
       return {
         ...prev,
         [e.target.name]: e.target.value,
@@ -28,92 +41,61 @@ const EditRecruter = () => {
     });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const formData = new FormData()
+    for(let attr in dataRecruter) {
+      formData.append(attr, dataRecruter[attr])
+    }
+    await updateRecruterById({id: user?.id, data: formData})
   };
 
+  
+  useEffect(() => {
+    if(isSuccessFetchRecruter){
+      setDataRecruter(prev => {
+        let data = {}
+        for(let attr in dataRecruter) {
+          data = {
+            ...data,
+            [attr] : recruter[attr]
+          }  
+        }
+        return data
+      })
+    }
+  }, [isLoadingFetchRecruter])
+
+  useEffect(() => {
+    if(isSuccessFetchRecruter) Swal.close()
+
+    if(isSuccessUpdateRecruter) successLoading('Success update Data!')
+  
+    if(isLoadingFetchRecruter || isLoadingUpdateRecruter ) showLoading('Please Wait...')
+
+  },[isLoadingFetchRecruter, isSuccessFetchRecruter, isErrorUpdateRecruter, isSuccessUpdateRecruter, isLoadingUpdateRecruter])
+
   return (
-    <ProfileLayout leftside={<CardEditProfile />}>
+    <ProfileLayout 
+      classLeft={`col-12 col-md-4`}
+      classRight={`col-12 col-md-8`}
+      leftside={<CardEditProfile data={recruter} onclick={(e) => submitHandler(e)} />}>
       <CardSection header={true} title={"Biodata"}>
         <div className="row">
           <div className="col-12">
             <Form onSubmit={submitHandler}>
-              <InputFormHire
-                title={"Company Name"}
-                name={"company_name"}
-                type={"text"}
-                value={data.company_name}
-                placeholder={"Enter Your Company Name"}
-                onchange={(e) => changeHandler(e)}
-                required={true}
-              />
-              <InputFormHire
-                title={"Field of Business"}
-                name={"business"}
-                type={"text"}
-                value={data.business}
-                placeholder={"Enter Your Business Field, ex : Finance"}
-                onchange={(e) => changeHandler(e)}
-                required={true}
-              />
-              <InputFormHire
-                title={"City"}
-                name={"city"}
-                type={"text"}
-                value={data.city}
-                placeholder={"Enter Your City"}
-                onchange={(e) => changeHandler(e)}
-                required={true}
-              />
-              <InputFormHire
-                title={"Description"}
-                name={"description"}
-                type={"textarea"}
-                value={data.description}
-                placeholder={"Explain the detail the purpse of this message"}
-                onchange={(e) => changeHandler(e)}
-                required={true}
-              />
-
-              <InputFormHire
-                title={"Email"}
-                name={"email"}
-                type={"email"}
-                value={data.email}
-                placeholder={"example@gmail.com"}
-                onchange={(e) => changeHandler(e)}
-                required={true}
-              />
-
-              <InputFormHire
-                title={"Phone Number"}
-                name={"phone"}
-                type={"number"}
-                value={data.phone}
-                placeholder={"+62 "}
-                onchange={(e) => changeHandler(e)}
-                required={true}
-              />
-
-              <InputFormHire
-                title={"Instagram"}
-                name={"instagram"}
-                type={"text"}
-                value={data.instagram}
-                placeholder={"Enter Your Instagram Name"}
-                onchange={(e) => changeHandler(e)}
-                required={true}
-              />
-
-              <InputFormHire
-                title={"Linkedin"}
-                name={"linkedin"}
-                type={"text"}
-                value={data.linkedin}
-                placeholder={"Enter Your linkedin Name"}
-                onchange={(e) => changeHandler(e)}
-                required={true}
-              />
+              {recruterForm.map((recruter, i) => (
+                 <InputFormHire
+                 key={i}
+                 title={recruter.title}
+                 name={recruter.name}
+                 type={recruter.type}
+                 value={dataRecruter[recruter.name]}
+                 placeholder={recruter.placeholder}
+                 onchange={(e) => changeHandler(e)}
+                 required={true}
+               />
+              ))}     
             </Form>
           </div>
         </div>

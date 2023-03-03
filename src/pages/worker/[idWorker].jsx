@@ -7,15 +7,19 @@ import CardPortofolio from "components/Cards/CardPortofolio/CardPortofolio";
 import CardExperience from "../../../components/Cards/CardExperience/CardExperience";
 import { useRouter } from "next/router";
 import { useGetWorkerByIdQuery } from "@/features/worker/workerApi";
+import { showLoading } from "@/common/loadingHandler";
+import Swal from 'sweetalert2'
 
-const Index = () => {
+const Index = () => {  
   const router = useRouter();
   const { data: worker, isLoading } = useGetWorkerByIdQuery(
-    router.query.idWorker
+    router.query.idWorker, {skip : router.query.idWorker ? false : true }
   );
   const [menuActive, setMenuActive] = useState("portofolios");
 
-  return (
+
+  return isLoading ? showLoading('Please Wait!') : (
+    Swal.close(),
     <ProfileLayout
       classLeft={`col-12 col-lg-4`}
       classRight={`col-12 col-lg-8 mt-3 mt-lg-0`}
@@ -92,4 +96,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default  Index;

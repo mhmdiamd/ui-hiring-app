@@ -20,14 +20,16 @@ const Index = () => {
     limit: router?.query?.limit,
   });
 
+  console.log(workers)
+
   const changePageHandler = (e, i) => {
     e.preventDefault();
 
-    router.push(`${router.pathname}/?page=${i}`);
+    router.push(`${router.pathname}/?page=${i}&limit=${workers?.limit}`);
   };
 
   const searchHandler = ({ sortBy, search }) => {
-    router.push(`${router.pathname}/?search=${search}&page=1&sortBy=${sortBy}`);
+    router.push(`${router.pathname}/?search=${search}&sortBy=${sortBy}`);
   };
 
   const renderPagination = () => {
@@ -35,6 +37,7 @@ const Index = () => {
     for (let i = 1; i <= workers?.totalPage; i++) {
       pagination.push(
         <Pagination.Item
+          key={i}
           active={i == workers?.currentPage}
           onClick={(e) => changePageHandler(e, i)}
         >

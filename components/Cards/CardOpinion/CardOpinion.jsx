@@ -6,14 +6,13 @@ import { faPen, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import style from "./CardOpinion.module.css";
 
-
-function CardOpinion({ data, key }) {
+function CardOpinion({ data }) {
   return (
-    <Card key={key} className={"border-0 shadow px-4 py-4"}>
+    <Card className={"border-0 shadow px-4 py-4"}>
       <Card.Img
         className={`${style.userPhoto} mx-auto rounded-circle`}
         variant="top"
-        src="/home/userProfile.jpg"
+        src={data?.photo == 'photodefault.jpg' ? '/photodefault.png' : data?.photo}
       />
       <span
         className={`${style.editUser} d-block text-center text-secondary pt-1`}
@@ -25,9 +24,8 @@ function CardOpinion({ data, key }) {
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry
         </Card.Text>
-      </Card.Body>  
+      </Card.Body>
     </Card>
-      
   );
 }
 

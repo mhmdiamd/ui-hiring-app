@@ -24,10 +24,40 @@ export const workerForm = [
     placeholder: "Enter Your Workplace",
   },
   {
-    title: "description",
+    title: "Phone",
+    name: "phone",
+    type: "number",
+    placeholder: "+62 ",
+  },
+  {
+    title: "Email active for message",
+    name: "active_email",
+    type: "email",
+    placeholder: "example@email.com ",
+  },
+  {
+    title: "Description",
     name: "description",
     type: "textarea",
     placeholder: "Enter Your Description",
+  },
+  {
+    title: "Instagram",
+    name: "instagram",
+    type: "text",
+    placeholder: "Enter Your Instagram",
+  },
+  {
+    title: "Github",
+    name: "github",
+    type: "text",
+    placeholder: "Enter Your Github",
+  },
+  {
+    title: "Gitlab",
+    name: "gitlab",
+    type: "text",
+    placeholder: "Enter Your Gitlab",
   },
 ];
 

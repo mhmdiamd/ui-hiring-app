@@ -31,12 +31,11 @@ const WorkerLogin = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     const res = await loginWorker(data);
-    console.log(res)
-    dispatch(setCredentials({ user: res.data.data, token: res.data.token }));
+    dispatch(setCredentials({ user: res?.data?.data, token: res?.data?.token }));
   };
 
   const redirectWeb = () => {
-    return router.push("/home");
+    return router.push("/home", undefined, {shallow: true});
   };
 
   useEffect(() => {

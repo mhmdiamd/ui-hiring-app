@@ -1,0 +1,11 @@
+.bgDescription {
+  background: #f7f7f9 !important;
+}
+.messageNotification {
+  font-size: .7em !important;
+  width:15px;
+  height:15px;
+  position:absolute;
+  top:0;
+  right:0;
+} 

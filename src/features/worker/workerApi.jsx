@@ -13,7 +13,9 @@ const workerApi = apiSlice.injectEndpoints({
       },
 
       providesTags: ["GetAllWorker"],
-      transformResponse: (response, meta, args) => response.data,
+      transformResponse: (response, meta, args) => {
+        return response
+      }
     }),
     getWorkerById: builder.query({
       query: (id) => {
@@ -44,17 +46,17 @@ const workerApi = apiSlice.injectEndpoints({
       invalidatesTags: ["ExperienceWorker"],
       transformResponse: (response, meta, args) => response.data,
     }),
-    updateExperienceById: builder.mutation({
+    updateWorkerById: builder.mutation({
       query: ({ id, data }) => ({
-        url: `experiences/${id}`,
+        url: `workers/${id}`,
         method: "PUT",
         body: data,
       }),
 
-      invalidatesTags: ["ExperienceWorker"],
+      invalidatesTags: ["ExperienceWorker", "GetWorkerById"],
       transformResponse: (response, meta, args) => response.data,
     }),
   }),
 });
 
-export const { useGetAllWorkerQuery, useGetWorkerByIdQuery } = workerApi;
+export const { useGetAllWorkerQuery, useGetWorkerByIdQuery, useUpdateWorkerByIdMutation } = workerApi;

@@ -20,7 +20,14 @@ export const workerApi = apiSlice.injectEndpoints({
 
       transformResponse: (response, meta, args) => response,
     }),
+    workerEmailActivation: builder.query({
+      query: (token) => ({
+        url: `workers/verification/${token}`,
+      }),
+
+      transformResponse: (response, meta, args) => response,
+    }),
   }),
 });
 
-export const { useWorkerRegisterMutation, useWorkerLoginMutation } = workerApi;
+export const { useWorkerRegisterMutation, useWorkerLoginMutation, useWorkerEmailActivationQuery } = workerApi;

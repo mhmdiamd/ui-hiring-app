@@ -13,7 +13,7 @@ const ProfileCard = ({ data }) => {
       <Card.Img
         className={`${style.userPhoto} mx-auto img-fluid rounded-circle`}
         variant="top"
-        src="/home/userProfile.jpg"
+        src={data?.photo == 'photodefault.jpg' ? '/photodefault.png' : data?.photo}
       />
       <div
         className={`${style.editUser} d-block text-center text-secondary pt-1`}
@@ -23,18 +23,16 @@ const ProfileCard = ({ data }) => {
       <Card.Body>
         <Card.Title>{data?.name}</Card.Title>
         <Card.Subtitle className="mb-2">{data?.jobdesk}</Card.Subtitle>
-        <Card.Text className={`text-muted`}>
+        <div className={`text-muted`}>
           <FontAwesomeIcon className={`mt-3 me-2`} icon={faLocationDot} />
           Banten, Indonesia
           <span className={`d-block mt-1`}>
             {data?.worker_category || "Unknown"}
           </span>
           <p className={"mt-4"}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s.
+            {data?.description}
           </p>
-        </Card.Text>
+        </div>
         <Link
           className={
             "w-100 py-2 text-decoration-none btn fw-semibold text-light bg-purple mt-2 border-0"
@@ -56,22 +54,22 @@ const ProfileCard = ({ data }) => {
         <div className={`social-media mt-5`}>
           <div className={"d-flex gap-4 text-muted align-items-center mt-3"}>
             <FontAwesomeIcon className={"fs-5"} icon={faEnvelope} />
-            <span className={"d-flex gap-3"}>darmawanilham34@gmail.com</span>
+            <span className={"d-flex gap-3"}>{data?.active_email}</span>
           </div>
 
           <div className={"d-flex gap-4 text-muted align-items-center mt-3"}>
             <FontAwesomeIcon className={"fs-5"} icon={faEnvelope} />
-            <span className={"d-flex gap-3"}>darmawanilham34@gmail.com</span>
+            <span className={"d-flex gap-3"}>{data?.instagram}</span>
           </div>
 
           <div className={"d-flex gap-4 text-muted align-items-center mt-3"}>
             <FontAwesomeIcon className={"fs-5"} icon={faEnvelope} />
-            <span className={"d-flex gap-3"}>darmawanilham34@gmail.com</span>
+            <span className={"d-flex gap-3"}>{data?.github}</span>
           </div>
 
           <div className={"d-flex gap-4 text-muted align-items-center mt-3"}>
             <FontAwesomeIcon className={"fs-5"} icon={faEnvelope} />
-            <span className={"d-flex gap-3"}>darmawanilham34@gmail.com</span>
+            <span className={"d-flex gap-3"}>{data?.gitlab}</span>
           </div>
         </div>
       </Card.Body>

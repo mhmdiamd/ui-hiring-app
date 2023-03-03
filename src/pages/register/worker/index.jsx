@@ -78,7 +78,7 @@ const WorkerRegisterPage = () => {
                 <InputGroup.Text id="phone">+62</InputGroup.Text>
               )}
               <Form.Control 
-                className={'bg-light py-2 rounded-0'} 
+                className={'bg-light py-2'} 
                 name={worker?.name} 
                 type={worker?.type} 
                 placeholder={worker?.placeholder} 
@@ -91,7 +91,7 @@ const WorkerRegisterPage = () => {
         ))}
         <Form.Group className="mb-3" controlId="formGroupPassword">
           <Form.Label>Confirmation Password</Form.Label>
-          <Form.Control className={'bg-light py-2 rounded-0'} value={passwordConfirmation}  onChange={(e) => setPasswordConfirmation(e.target.value)} type="password" placeholder="*************" required/>
+          <Form.Control className={'bg-light py-2'} value={passwordConfirmation}  onChange={(e) => setPasswordConfirmation(e.target.value)} type="password" placeholder="*************" required/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formGroupPassword">
