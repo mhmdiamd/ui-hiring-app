@@ -67,10 +67,12 @@ const Navbar = () => {
           href="/home"
           shallow={true}
         >
-          <img
+          <Image
             src={"/navbar/navbarLogo.png"}
-            alt=""
+            alt="logo-image"
             className="img-fluid small-logo"
+            width={50}
+            height={50}
           />
           <span className="text-purple fs-5 ms-2 fw-semibold">YuGawe</span>
         </Link>
