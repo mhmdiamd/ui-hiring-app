@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
   "framework": "nextjs",
   "buildCommand": "next build",
   "cleanUrls": true
