@@ -2,7 +2,7 @@ import AuthenticationLayout from 'components/templates/Authentication/Authentica
 import React, {useState, useEffect} from 'react';
 import { Form } from 'react-bootstrap';
 import Link from 'next/link'
-import {workerForm} from './workerForm'
+import {workerForm} from '../../../../lib/workerForm'
 import { useWorkerRegisterMutation } from '@/features/auth/worker/workerApi';
 import {showLoading, successLoading, failedLoading} from '@/common/loadingHandler' 
 import InputGroup from 'react-bootstrap/InputGroup';

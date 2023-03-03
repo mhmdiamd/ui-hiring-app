@@ -4,7 +4,7 @@ import CardSection from "components/Cards/CardSection/CardSection";
 import CardEditProfile from "components/Cards/CardEditProfile/CardEditProfile";
 import InputFormHire from "components/Form/InputFormHire/InputFormHire";
 import Form from "react-bootstrap/Form";
-import {recruterForm} from './recruterForm'
+import {recruterForm} from '../../../../lib/edit-recruter/recruterForm'
 import { useGetRecruterByIdQuery, useUpdateRecruterByIdMutation } from "@/features/recruter/recruterApi";
 import { useSelector } from "react-redux";
 import Swal from 'sweetalert2'

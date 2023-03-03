@@ -3,7 +3,7 @@ import ProfileLayout from "components/templates/Profile/ProfileLayout";
 import CardSection from "components/Cards/CardSection/CardSection";
 import EditProfileWorker from "components/Cards/CardEditProfile/CardEditProfile";
 import InputFormHire from "components/Form/InputFormHire/InputFormHire";
-import { workerForm, workerExperienceForm } from "./workerForm";
+import { workerForm, workerExperienceForm } from "../../../../lib/edit-worker/workerForm";
 import Form from "react-bootstrap/Form";
 import { useCreateExperienceMutation } from "@/features/worker/experience/experienceApi";
 import CardExperience from "../../../../components/Cards/CardExperience/CardExperience";

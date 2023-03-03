@@ -2,7 +2,7 @@ import AuthenticationLayout from 'components/templates/Authentication/Authentica
 import React, {useState, useEffect} from 'react';
 import { Form } from 'react-bootstrap';
 import Link from 'next/link'
-import { recruterForm } from './recruterForm';
+import { recruterForm } from '../../../../lib/recruterForm';
 import { useRecruterRegisterMutation } from '@/features/auth/recruter/recruterApi';
 import {showLoading, successLoading, failedLoading} from '@/common/loadingHandler'
 import InputGroup from 'react-bootstrap/InputGroup'; 
