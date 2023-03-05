@@ -8,7 +8,7 @@ import style from "./CardOpinion.module.css";
 
 function CardOpinion({ data }) {
   return (
-    <Card className={"border-0 shadow px-4 py-4"}>
+    <Card className={`${style.card} border-0 shadow px-4 py-4`}>
       <Card.Img
         className={`${style.userPhoto} mx-auto rounded-circle`}
         variant="top"
@@ -17,7 +17,7 @@ function CardOpinion({ data }) {
       <span
         className={`${style.editUser} d-block text-center text-secondary pt-1`}
       ></span>
-      <Card.Body>
+      <Card.Body className={style.cardBody}>
         <Card.Title>{data.name}</Card.Title>
         <Card.Subtitle className="mb-2">{data.jobdesk}</Card.Subtitle>
         <Card.Text className={`text-muted`}>

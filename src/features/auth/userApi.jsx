@@ -7,10 +7,18 @@ export const userApi = apiSlice.injectEndpoints({
         url: "me",
       }),
 
+      providesTags: ['getDataUserLogin'],
       transformResponse: (response, meta, args) => response,
     }),
-  
+    logoutUserLogin: builder.mutation({
+      query: () => ({
+        url: "auth/logout",
+        method: "POST",
+      }),
+      
+      transformResponse: (response, meta, args) => response.data
+    })
   }),
 });
 
-export const { useGetDataUserLoginQuery } = userApi;
+export const { useGetDataUserLoginQuery, useLogoutUserLoginMutation } = userApi;

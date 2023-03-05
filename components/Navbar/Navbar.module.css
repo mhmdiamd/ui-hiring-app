@@ -9,3 +9,8 @@
   top:0;
   right:0;
 } 
+
+.userProfile {
+  width:40px !important;
+  height: 40px !important;
+}

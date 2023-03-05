@@ -32,7 +32,6 @@ const EditRecruter = () => {
   });
 
   const changeHandler = (e) => {
-    console.log(dataRecruter)
     setDataRecruter((prev) => {
       return {
         ...prev,
@@ -79,7 +78,9 @@ const EditRecruter = () => {
     <ProfileLayout 
       classLeft={`col-12 col-md-4`}
       classRight={`col-12 col-md-8`}
-      leftside={<CardEditProfile data={recruter} onclick={(e) => submitHandler(e)} />}>
+      leftside={<CardEditProfile data={recruter} 
+      onchange={(file) => setDataRecruter(prev => ({...prev, photo: file}))}
+      onclick={(e) => submitHandler(e)} />}>
       <CardSection header={true} title={"Biodata"}>
         <div className="row">
           <div className="col-12">

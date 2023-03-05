@@ -2,9 +2,114 @@
   z-index: 10;
 }
 
+.firstLanding {
+  margin-top: 80px !important;
+}
+
 .btnFirstPage {
   width:fit-content;
 }
+
+.staticImage{
+  position: relative;
+  z-index: 10;
+}
+
+.thirdImage {
+  max-width: 500px;
+}
+
+
+.bgSpiral{
+  display: block;
+  max-width: 500px;
+  max-height: 400px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 9;
+  background-color: #E2E5ED;
+  transform: rotate(-15.79deg);
+}
+
+.photoAccessories{
+  display: block;
+  width: 139px;
+  height: 212px;
+  position: absolute;
+  background-image: url("/landing/photo-accessories-1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 11;
+  bottom: -50px;
+  left: -30px;
+}
+
+.bgSpiral2{
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 9;
+  top:0;
+  left: 0;
+  background-color: #E2E5ED;
+  transform: rotate(15.79deg);
+}
+
+.photoAccessories2{
+  display: block;
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  background-color: #ff5972;
+  z-index: 11;
+  top: -45px;
+  left: -30px;
+}
+.photoAccessories3{
+  display: block;
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  background-color: #ff5972;
+  z-index: 11;
+  top: -40px;
+  right: -20px;
+}
+
+.bgWave {
+  bottom: 0;
+}
+
+.banner {
+  height: 200px !important;
+  border-radius: 40px 8px;
+}
+
+.btnBanner {
+  height: fit-content;
+}
+
+@media (max-width: 990px) {
+  .bgSpiral2{
+    width: 276px;
+    height: 217px;
+  }
+  .photoAccessories2 {
+    width: 50px;
+    height: 50px;
+    left: -15px;
+    top: -15px;
+  }
+  .photoAccessories{
+      bottom: -70px;
+      left: -10px;
+      width: 89px !important;
+      height: 172px !important;
+  }
+}
+
 
 @media (max-width: 768px) {
   .bgImage {
@@ -15,6 +120,7 @@
   }
 
   .firstLanding {
+    margin-top: inherit !important;
     min-height: 100vh !important;
     text-align: center;
     color: #ffffff !important;

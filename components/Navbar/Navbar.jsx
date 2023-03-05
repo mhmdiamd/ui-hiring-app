@@ -13,7 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 
 import { logout, setCredentials } from "@/app/api/authSlice";
-import { useGetDataUserLoginQuery } from "@/features/auth/userApi";
+import { useGetDataUserLoginQuery, useLogoutUserLoginMutation } from "@/features/auth/userApi";
 import { useGetMessageWorkerQuery, useGetMessageRecruterQuery, useUpdateMessageByIdMutation } from "@/features/message/messageApi";
 import MessageListCard from '../Cards/MessageListCard/MessageListCard'
 import style from './Navbar.module.css'
@@ -22,14 +22,19 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector(state => state.auth)
-  const {data, isLoading} = useGetDataUserLoginQuery()
+  const [loading, setLoading] = useState(false)
+  const [logoutUserLogin, {isLoading: isLoadingUserLogout}] = useLogoutUserLoginMutation()
+
+  const {data, isLoading: isLoadingGetDataUserLogin} = useGetDataUserLoginQuery()
   const {data: messages, isLoading: isLoadingMessage} = useGetMessageWorkerQuery({}, {skip: data?.data?.role == 'worker' ? false : true})
 
   const [updateMessageById, { isLoading: isLoadingUpdateMessage}] = useUpdateMessageByIdMutation()
   const [auth, setAuth] = useState(false);
 
-  const logoutHandler = (e) => {
+
+  const logoutHandler = async (e) => {
     if (confirm("are you sure to logout?")) {
+      await logoutUserLogin()
       dispatch(logout());
       return router.push("/login/worker");
     }
@@ -44,7 +49,6 @@ const Navbar = () => {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       if(!user.user) {
-        console.log(data)
         dispatch(setCredentials({
           user: data?.data,
           token: localStorage.getItem("token")
@@ -54,27 +58,27 @@ const Navbar = () => {
     }
   }, [auth, user, data]);
 
+
   return (
     <>
     <nav
-      className="navbar navbar-expand-lg d-flex flex-column pb-0 sticky-top"
-      style={{ backgroundColor: "#fff" }}
+      className="navbar navbar-expand-lg d-flex flex-column pb-0 sticky-top" style={{background: "#ffffff"}}
     >
       <div className="container pb-2">
         {/* <!-- Nav Logo --> */}
         <Link
-          className="navbar-brand ps-0 d-flex align-items-center me-4 btn fs-5 color-trinary"
+          className="navbar-brand ps-0 d-flex align-items-center me-4 btn fs-5 text-dark"
           href="/home"
           shallow={true}
         >
           <Image
-            src={"/navbar/navbarLogo.png"}
+            src={"/navbar/navbarLogoPink.png"}
             alt="logo-image"
             className="img-fluid small-logo"
             width={50}
             height={50}
           />
-          <span className="text-purple fs-5 ms-2 fw-semibold">YuGawe</span>
+          <span className="text-dark fs-5 ms-2 fw-semibold">YuGawe</span>
         </Link>
         {/* <!-- End Nav Logo --> */}
 
@@ -83,11 +87,11 @@ const Navbar = () => {
           <div className="d-flex gap-2 ms-auto">
             <Link
               href=""
-              className={`btn fs-5 color-trinary btn position-relative fs-5 color-trinary`}
+              className={`btn fs-5 text-light btn position-relative text-light`}
               data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
             >
               <FontAwesomeIcon 
-                className="color-trinary"
+                className="text-dark"
                 icon={faEnvelope}
               ></FontAwesomeIcon>
               {messages?.total > 0 && (
@@ -95,9 +99,9 @@ const Navbar = () => {
               )} 
             </Link>
 
-            <Link href="" className="color-trinary btn fs-5">
+            <Link href="" className="text-light btn fs-5">
               <FontAwesomeIcon
-                className="color-trinary"
+                className="text-dark"
                 icon={faBell}
               ></FontAwesomeIcon>
             </Link>
@@ -109,14 +113,16 @@ const Navbar = () => {
                 aria-expanded="false"
               >
                 <Image
-                  src={user || user?.photo == 'photodefault.jpg' ? '/photodefault.png' : user.photo}
-                  className="me-2 img-fluid rounded-circle dropdown-toggle"
+                  src={
+                    isLoadingGetDataUserLogin ? '/photodefault.png' : 
+                    data?.data?.photo == 'photodefault.jpg' ? '/photodefault.png' : data?.data?.photo}
+                  className={`me-2 rounded-circle dropdown-toggle`}
                   alt="profil-user"
-                  width={50}
-                  height={50}
+                  width={40}
+                  height={40}
                 />
                 <FontAwesomeIcon
-                  className="fs-4 color-trinary"
+                  className="fs-4 text-dark"
                   icon={faCaretDown}
                 />
               </div>
@@ -157,7 +163,7 @@ const Navbar = () => {
 
             <Link
               href="/register/worker"
-              className="btn btn-signup border border-1 btn color-trinary py-0 color-trinary py-1"
+              className="btn btn-signup border border-1 btn py-0 py-1"
             >
               Sign up
             </Link>
@@ -179,17 +185,17 @@ const Navbar = () => {
       )}
     </nav>
 
-    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
+    <div className="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabIndex="-1">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
               <FontAwesomeIcon data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
                 icon={faEnvelope}
               ></FontAwesomeIcon> Your Message!</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             {messages?.data?.map((message,i) => (
               <div key={i} onClick={() => openMessageHandler(message.id, message.read_status)}>
                 <MessageListCard data={message} index={i}/>
@@ -201,14 +207,14 @@ const Navbar = () => {
     </div>
  
     {messages?.data?.map((message,i) => (
-      <div key={i} class="modal fade" id={`exampleModalToggle${i}`} aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">{message?.recruter_name}</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div key={i} className="modal fade" id={`exampleModalToggle${i}`} aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalToggleLabel2">{message?.recruter_name}</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <div className={`row`}>
                 <div className={`col-12`}>
                   <span className={'fw-semibold'}>Title : </span>
@@ -223,8 +229,8 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button class="btn btn-primary" data-bs-target={`#exampleModalToggle`} data-bs-toggle="modal">Back to first</button>
+            <div className="modal-footer">
+              <button className="btn btn-primary" data-bs-target={`#exampleModalToggle`} data-bs-toggle="modal">Back to first</button>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ const CardExperience = ({ data, photo, descriptionVisibility, id }) => {
       <div className="row">
         <div className="col-12 col-sm-3 col-md-auto d-flex justify-content-center">
           <img
-            src={data?.photo || photo}
+            src={data?.company_photo || photo}
             className={`${style.workerProfile} img-fluid`}
             alt="..."
           />

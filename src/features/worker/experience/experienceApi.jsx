@@ -14,10 +14,10 @@ const experienceApi = apiSlice.injectEndpoints({
       query: ({ data }) => ({
         url: "experiences",
         method: "POST",
-        body: data,
+        body: data,     
       }),
 
-      invalidatesTags: ["ExperienceWorker", "GetWorkerById"],
+      invalidatesTags: ["GetWorkerById"],
       transformResponse: (response, meta, args) => response.data,
     }),
     deleteExperienceById: builder.mutation({

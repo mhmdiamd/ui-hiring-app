@@ -23,8 +23,9 @@
 }
 
 .editText {
-  cursor: pointer;
+  cursor: pointer !important;
   position: absolute;
-  bottom: 5px;
-  right: 20px;
+  bottom: 10px;
+  right: 25px;
+  z-index: 10;
 }

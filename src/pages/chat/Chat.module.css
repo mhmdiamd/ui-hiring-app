@@ -1,0 +1,26 @@
+.sectionChat {
+  height: 500px;
+}
+
+.inputBar {
+  bottom: 0;
+  z-index: 10;
+  left: 12px;
+}
+
+.chat {
+  max-width: 80%;
+  width: fit-content;
+}
+
+.myChat {
+  border-radius: 14px 0 14px 14px;
+}
+.peopleChat {
+  border-radius: 0 14px 14px 14px;
+}
+
+.bodyChat {
+  background-color: #ececec;
+  overflow-y: scroll;
+}

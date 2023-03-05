@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import { useRouter } from 'next/router'
 import { setCredentials, logout } from './authSlice'
 
 const baseQuery = fetchBaseQuery({
@@ -36,6 +37,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
   if(result?.error?.status == 401) {
     api.dispatch(logout())
+    // router.push(`/login/worker`)
   }
 
   return result

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className={`bg-purple w-vh-100 pb-3 pt-5`}>
+    <div className={`bg-dark w-vh-100 pb-3 pt-5`}>
       <div className={"container"}>
         <div className={"row"}>
           <div className={"col-12 px-0 mb-3"}>
@@ -24,10 +24,12 @@ const Footer = () => {
           </div>
           <div className={"col-12 pb-5 border-0 border-bottom border-light"}>
             <div className={"row"}>
-              <div className={"col-12 col-sm-6 col-md-4"}>
-                <p className={"text-light"}>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's.
+              <div className={"col-12 col-sm-8 col-md-6"}>
+                <p className={"text-light fs-2 fw-semibold"}>
+                  Discover <span className="text-purple">talented</span> talents with <span className="text-purple">high Caliber</span> abilities
+                </p>
+                <p className="text-light">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, aliquam ipsa dolor rerum fugit
                 </p>
               </div>
             </div>

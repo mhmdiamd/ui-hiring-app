@@ -69,8 +69,8 @@ const Index = () => {
 
   return (
     <ProfileLayout
-     classLeft={`col-12 col-md-4`}
-     classRight={`col-12 col-md-8`}
+     classLeft={`col-12 col-md-5 col-lg-4`}
+     classRight={`col-12 col-md-7 col-lg-8`}
      leftside={<ProfileCardHire data={worker}/>}>
       <div className="row">
         <div className="col-12 col-md-11 offset-0 offset-md-1">

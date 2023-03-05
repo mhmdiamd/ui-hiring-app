@@ -45,7 +45,7 @@ body {
 }
 
 .text-purple {
-  color: #5e50a1 !important;
+  color: #ff5972 !important;
 }
 
 .color-option {
@@ -62,13 +62,12 @@ body {
 }
 
 .bg-purple {
-  background: #5e50a1 !important;
+  background: #ff5972 !important;
 }
 
 .btn-yellow {
   color: #FCCD6E !important;
   border-color: #FCCD6E !important;
-  border-size: 3px !important;
 }
 
 .btn-yellow:hover {
@@ -77,12 +76,12 @@ body {
 }
 
 .btn-purple {
-  color: #5e50a1 !important;
-  border-color: #5e50a1 !important;
+  color: #ff5972 !important;
+  border-color: #ff5972 !important;
 }
 
 .border-purple {
-  border-color: #5e50a1 !important;
+  border-color: #ff5972 !important;
 }
 
 .color-gray {
@@ -137,4 +136,8 @@ body {
 
 .more-small-text {
   font-size: 10px;
+}
+
+.pointer {
+  cursor: pointer !important;
 }

@@ -17,7 +17,7 @@ const Index = () => {
     page: router?.query?.page,
     sortBy: router?.query?.sortBy,
     sort: router?.query?.sort,
-    limit: router?.query?.limit,
+    limit: router?.query?.limit
   });
 
   console.log(workers)

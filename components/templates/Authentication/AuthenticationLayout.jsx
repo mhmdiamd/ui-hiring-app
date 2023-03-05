@@ -15,10 +15,9 @@ const AuthenticationLayout = ({ children, title, description }) => {
                 <img className={`${style.imgLogo}`} src="/authpage/logo.png" />
                 <span className={"fw-semibold text-light"}>YuGawe</span>
               </div>
-              <div className="col-12 col-lg-8 h-100 d-flex ps-2 ps-lg-5 align-items-center">
+              <div className="col-12 col-lg-9 h-100 d-flex ps-2 ps-lg-5 align-items-center">
                 <span className="fs-1 fw-semibold text-light">
-                  Temukan developer berbakat & terbaik di berbagai bidang
-                  keahlian
+                  Find <span className="text-purple">talented </span>& <span className="text-purple">best</span> developers in various fields skill
                 </span>
               </div>
             </div>

@@ -36,6 +36,12 @@ export const workerForm = [
     placeholder: "example@email.com ",
   },
   {
+    title: "Type Work",
+    name: "worker_category",
+    type: "text",
+    placeholder: "Enter Your Type Work",
+  },
+  {
     title: "Description",
     name: "description",
     type: "textarea",

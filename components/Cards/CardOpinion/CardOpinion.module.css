@@ -1,4 +1,14 @@
 .userPhoto {
   max-width: 120px !important;
   max-height: 120px !important;
+  height: 120px !important;
+  width: 120px !important;
+}
+
+.card {
+  max-height: 367px !important;
+}
+
+.cardBody {
+  overflow: hidden;
 }

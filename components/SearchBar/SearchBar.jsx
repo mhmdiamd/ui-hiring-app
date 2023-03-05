@@ -36,10 +36,7 @@ const SearchBar = ({onsearch}) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <FontAwesomeIcon
-            className={"color-trinary fs-5"}
-            icon={faMagnifyingGlass}
-          />
+          <i class="fa-solid fa-magnifying-glass color-trinary fs-5"></i>
         </InputGroup>
 
         <Form.Select className={`w-25 d-inline mx-2 bg-transparent mt-1 text-secondary border-0 `} aria-label="Default select example" onChange={(e) => setSortBy(e.target.value)}>

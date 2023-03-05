@@ -11,7 +11,6 @@ const messageApi = apiSlice.injectEndpoints({
 
       providesTags: ["getMessageWorker"],
       transformResponse: (response, meta, args) => {
-        console.log(response.data)
         
         const count = response.data.filter(message => message.read_status == 1).length
         return {data: response.data, total: count}

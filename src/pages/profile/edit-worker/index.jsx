@@ -7,7 +7,7 @@ import { workerForm, workerExperienceForm } from "../../../../lib/edit-worker/wo
 import Form from "react-bootstrap/Form";
 import { useCreateExperienceMutation } from "@/features/worker/experience/experienceApi";
 import CardExperience from "../../../../components/Cards/CardExperience/CardExperience";
-import { useCreateWorkerSkillMutation } from "@/features/worker/worker_skill/workerSkillApi";
+import { useCreateWorkerSkillMutation, useDeleteWorkerSkillByIdMutation } from "@/features/worker/worker_skill/workerSkillApi";
 import { useCreatePortofolioMutation } from "@/features/worker/portofolio/portofolioApi";
 import { useGetWorkerByIdQuery, useUpdateWorkerByIdMutation } from "@/features/worker/workerApi";
 import Swal from 'sweetalert2'
@@ -17,11 +17,13 @@ import {
   failedLoading,
 } from "@/common/loadingHandler";
 import { useSelector } from "react-redux";
+import style from './EditWorker.module.css'
 
 const EditWorker = () => {
   const user = useSelector(state => state.auth.user)
   const { data: worker, isLoading: isLoadingFetchWorker, isSuccess: isSuccessFetchWorker } = useGetWorkerByIdQuery(user?.id, {skip : user ? false : true});
   const [updateWorkerById, {isLoading: isLoadingUpdateWorker, isSuccess: isSuccessUpdateWorker, isError: isErrorUpdateWorker}] = useUpdateWorkerByIdMutation()
+  const [deleteWorkerSkillById, {isLoading: isLoadingDeleteWorkerSkill, isSuccess:isSuccessDeleteWorkerSkill}] = useDeleteWorkerSkillByIdMutation()
 
   const [dataWorker, setDataWorker] = useState({
     name: "",
@@ -48,11 +50,9 @@ const EditWorker = () => {
             [attr] : worker[attr]
           }  
         }
-        console.log(data)
         return data
       })
     }
-    console.log(dataWorker)
   }, [isLoadingFetchWorker])
 
 
@@ -90,6 +90,7 @@ const EditWorker = () => {
     company_name: "",
     career_start: "",
     career_end: "",
+    company_photo: "",
     description: "",
   });
 
@@ -101,7 +102,6 @@ const EditWorker = () => {
   });
 
   const changeHandler = (e, callback) => {
-    console.log(dataWorker)
     callback((prev) => {
       return {
         ...prev,
@@ -110,8 +110,28 @@ const EditWorker = () => {
     });
   };
 
+  // Delete Handler 
+  const deleteHandlerWorkerSkill = async (id) => {
+    Swal.fire({
+      title: 'Are you sure to delete your skill?',
+      showCancelButton: true,
+      confirmButtonText: 'Sure!',
+    }).then(async (result) => {
+      await deleteWorkerSkillById(id)
+    })
+  } 
+
+  // End Delete Handler
+
+  // Update handler
   const updateHandler = async (e) => {
-    await updateWorkerById({id : user?.id, data: dataWorker})
+    const formData = new FormData()
+    for(let attr in dataWorker) {
+      
+      formData.append(attr, dataWorker[attr])
+    }
+
+    await updateWorkerById({id : user?.id, data: formData})
   }
 
   const submitHandler = async (e) => {
@@ -120,12 +140,12 @@ const EditWorker = () => {
 
   const submitHandlerExperience = async (e) => {
     e.preventDefault();
+    const formData = new FormData()
+    for(let attr in workerExperienceData){
+      formData.append(attr, workerExperienceData[attr])
+    }
     await createExperience({
-      data: {
-        ...workerExperienceData,
-        career_start: undefined,
-        career_end: undefined,
-      },
+      data: formData,
     });
   };
 
@@ -205,7 +225,9 @@ const EditWorker = () => {
     <ProfileLayout
       classLeft={`col-12 col-lg-4`}
       classRight={`col-12 col-lg-8`}
-      leftside={<EditProfileWorker data={worker} onclick={(e) => updateHandler(e)}/>}
+      leftside={<EditProfileWorker data={worker} 
+        onclick={(e) => updateHandler(e)} 
+        onchange={(photo) => setDataWorker(prev => ({...prev, photo: photo})) }/>}
     >
       <CardSection header={true} title={"Biodata"}>
         <Form onSubmit={submitHandler}>
@@ -228,6 +250,18 @@ const EditWorker = () => {
       </CardSection>
 
       <CardSection header={true} title={"Skill"}>
+      <div className="row">
+          <div className="col-12 d-flex flex-wrap gap-2 mb-2">
+            {worker?.worker_skills?.map((skill, i) => {
+                return (
+                  <div className="bg-warning px-3 rounded py-1 btn-warning text-light d-flex align-items-center gap-2">
+                    <span className={'p-0 pb-1'}>{skill.skill}</span>
+                    <i class={`${style.deleteSkill} fa-solid fa-xmark text-light`} onClick={(e) => deleteHandlerWorkerSkill(skill.id)} ></i>
+                  </div>
+                );
+            })}
+          </div>
+        </div>
         <Form onSubmit={submitHandlerSkill}>
           <div className={"row"}>
             <div className={"col-8 col-md-10"}>
@@ -286,12 +320,25 @@ const EditWorker = () => {
                   name={experience.name}
                   type={experience.type}
                   value={workerExperienceData[experience.name]}
-                  placeholder={experience.placeholder}
+                  placeholder={experience?.placeholder}
                   onchange={(e) => changeHandler(e, setWorkerExperienceData)}
                   required={true}
                 />
               </div>
             ))}
+            <div className={`col-12`}>
+              <InputFormHire
+                title={"Company Logo"}
+                name={"company_photo"}
+                type={"file"}
+                onchange={(e) =>
+                  setWorkerExperienceData((prev) => ({
+                    ...prev,
+                    company_photo: e.target.files[0],
+                  }))
+                }
+              />
+            </div>
           </div>
           <div className={"row mt-3"}>
             <div className={"col-12"}>

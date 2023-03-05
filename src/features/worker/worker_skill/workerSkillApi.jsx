@@ -17,16 +17,16 @@ const workerSkillApi = apiSlice.injectEndpoints({
         body: data,
       }),
 
-      invalidatesTags: ["getWorkerSkillByIdWorker"],
+      invalidatesTags: ["getWorkerSkillByIdWorker", "GetWorkerById"],
       transformResponse: (response, meta, args) => response.data,
     }),
     deleteWorkerSkillById: builder.mutation({
-      query: ({ id }) => ({
+      query: (id) => ({
         url: `worker-skills/${id}`,
         method: "DELETE",
       }),
 
-      invalidatesTags: ["getWorkerSkillByIdWorker"],
+      invalidatesTags: ["getWorkerSkillByIdWorker", "GetWorkerById"],
       transformResponse: (response, meta, args) => response.data,
     }),
   }),
