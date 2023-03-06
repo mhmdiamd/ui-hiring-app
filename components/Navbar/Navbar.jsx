@@ -62,7 +62,7 @@ const Navbar = () => {
   return (
     <>
     <nav
-      className="navbar navbar-expand-lg d-flex flex-column pb-0 sticky-top" style={{background: "#ffffff"}}
+      className="navbar navbar-expand-lg d-flex flex-column pb-0 " style={{background: "#ffffff"}}
     >
       <div className="container pb-2">
         {/* <!-- Nav Logo --> */}
