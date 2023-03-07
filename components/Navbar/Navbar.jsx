@@ -22,15 +22,20 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector(state => state.auth)
-  const [loading, setLoading] = useState(false)
-  const [logoutUserLogin, {isLoading: isLoadingUserLogout}] = useLogoutUserLoginMutation()
-
+  const [logoutUserLogin] = useLogoutUserLoginMutation()
   const {data, isLoading: isLoadingGetDataUserLogin} = useGetDataUserLoginQuery()
-  const {data: messages, isLoading: isLoadingMessage} = useGetMessageWorkerQuery({}, {skip: data?.data?.role == 'worker' ? false : true})
-
-  const [updateMessageById, { isLoading: isLoadingUpdateMessage}] = useUpdateMessageByIdMutation()
+  const {data: messagesWorker} = useGetMessageWorkerQuery({}, {skip: data?.data?.role == 'worker' ? false : true})
+  const {data: messagesRecruter} = useGetMessageRecruterQuery({}, {skip: data?.data?.role == 'recruter' ? false : true})
+  const [updateMessageById] = useUpdateMessageByIdMutation()
   const [auth, setAuth] = useState(false);
 
+  function messages () {
+    if(messagesWorker){
+      return messagesWorker
+    }else {
+      return messagesRecruter
+    }
+  }
 
   const logoutHandler = async (e) => {
     if (confirm("are you sure to logout?")) {
@@ -41,7 +46,7 @@ const Navbar = () => {
   };
   
   const openMessageHandler = async (id, readStatus) => {
-    if(readStatus != 2) {
+    if(readStatus != 2 && user.user.role == 'worker') {
       await updateMessageById({id, data: {read_status : 2}})
     }
   }
@@ -94,8 +99,8 @@ const Navbar = () => {
                 className="text-dark"
                 icon={faEnvelope}
               ></FontAwesomeIcon>
-              {messages?.total > 0 && (
-                <span className={`${style.messageNotification} p-1 rounded-circle d-flex justify-content-center align-items-center bg-danger text-light`}>{messages?.total}</span>
+              {messages()?.total > 0 && (
+                <span className={`${style.messageNotification} p-1 rounded-circle d-flex justify-content-center align-items-center bg-danger text-light`}>{messages()?.total}</span>
               )} 
             </Link>
 
@@ -196,7 +201,7 @@ const Navbar = () => {
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body">
-            {messages?.data?.map((message,i) => (
+            {messages()?.data?.map((message,i) => (
               <div key={i} onClick={() => openMessageHandler(message.id, message.read_status)}>
                 <MessageListCard data={message} index={i}/>
               </div>
@@ -206,8 +211,8 @@ const Navbar = () => {
       </div>
     </div>
  
-    {messages?.data?.map((message,i) => (
-      <div key={i} className="modal fade" id={`exampleModalToggle${i}`} aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
+    {messages()?.data?.map((message,i) => (
+      <div key={i} className="modal fade" id={`exampleModalToggle${message.id}`} aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabIndex="-1">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
@@ -218,7 +223,7 @@ const Navbar = () => {
               <div className={`row`}>
                 <div className={`col-12`}>
                   <span className={'fw-semibold'}>Title : </span>
-                  <span>{message?.category_message?.name}</span>
+                  <span>{message?.purpose}</span>
                 </div>
                 <div className={`col-12`}>
                   <span className={'fw-semibold'}>Sender : </span>

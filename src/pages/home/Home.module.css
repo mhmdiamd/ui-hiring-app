@@ -90,6 +90,10 @@
 .btnBanner {
   height: fit-content;
 }
+.textSide {
+  position: relative;
+  z-index: 10;
+}
 
 @media (max-width: 990px) {
   .bgSpiral2{

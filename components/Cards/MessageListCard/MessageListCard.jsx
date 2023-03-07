@@ -14,8 +14,8 @@ import Image from "next/image";
 const MessageListCard = ({ data, index }) => {
   return (
     <div
-      data-bs-target={`#exampleModalToggle${index}`} data-bs-toggle="modal"
-      className={`${style.card} card px-2 border-0 border-bottom rounded-0 min-w-100`}
+      data-bs-target={`#exampleModalToggle${data.id}`} data-bs-toggle="modal"
+      className={`${style.card} card px-2 border-0 border-bottom rounded-0 pointer min-w-100`}
     >
       <div className="row">
         <div className="col-auto d-flex justify-content-center align-items-center">

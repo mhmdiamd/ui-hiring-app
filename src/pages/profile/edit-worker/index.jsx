@@ -256,7 +256,7 @@ const EditWorker = () => {
                 return (
                   <div className="bg-warning px-3 rounded py-1 btn-warning text-light d-flex align-items-center gap-2">
                     <span className={'p-0 pb-1'}>{skill.skill}</span>
-                    <i class={`${style.deleteSkill} fa-solid fa-xmark text-light`} onClick={(e) => deleteHandlerWorkerSkill(skill.id)} ></i>
+                    <i className={`${style.deleteSkill} fa-solid fa-xmark text-light`} onClick={(e) => deleteHandlerWorkerSkill(skill.id)} ></i>
                   </div>
                 );
             })}

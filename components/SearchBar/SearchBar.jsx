@@ -47,22 +47,6 @@ const SearchBar = ({onsearch}) => {
           <option value="freelance">Sort by Freelance</option>
           <option value="fulltime">Sort by Fulltime</option>
         </Form.Select>
-        {/* <Dropdown className="d-inline mx-2">
-          <Dropdown.Toggle
-            className={"bg-transparent mt-1 text-secondary border-0"}
-            id="dropdown-autoclose-true"
-          >
-            Category
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item href="#" onClick={(e) => setSort(e.target.value)}>Sort by Name</Dropdown.Item>
-            <Dropdown.Item href="#" onClick={(e) => setSort(e.target.value)}>Sort by Skills</Dropdown.Item>
-            <Dropdown.Item href="#" onClick={(e) => setSort(e.target.value)}>Sort by Address</Dropdown.Item>
-            <Dropdown.Item href="#" onClick={(e) => setSort(e.target.value)}>Sort by Freelance</Dropdown.Item>
-            <Dropdown.Item href="#" onClick={(e) => setSort(e.target.value)}>Sort by Fulltime</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown> */}
         <Button
           className={"rounded-0 bg-purple border-0 d-block pt-0 rounded-end"}
           onClick={searchHandler}

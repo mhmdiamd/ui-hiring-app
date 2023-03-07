@@ -21,7 +21,7 @@ const Index = () => {
   const [createMessage, {isLoading: isLoadingCreateMessage, isSuccess : isSuccessCreateMessage, isError : isErrorCreateMessage}] = useCreateMessageMutation()
 
   const [data, setData] = useState({
-    purpose: "1",
+    purpose: "Project",
     recruter_name: "",
     email: "",
     phone: "0",
@@ -87,10 +87,10 @@ const Index = () => {
           <Form onSubmit={submitHandler}>
             <label className={'mb-1'}>Title</label>
             <Form.Select aria-label="Default select example" className={'mb-2'} name={'purpose'} onChange={changeHandler}>
-              <option value="1">Project</option>
-              <option value="2">Fulltime</option>
-              <option value="3">Internship</option>
-              <option value="4">Magang</option>
+              <option value="Project">Project</option>
+              <option value="Fulltime">Fulltime</option>
+              <option value="Internship">Internship</option>
+              <option value="Magang">Magang</option>
             </Form.Select>
             <InputFormHire
               title={"Name"}
@@ -148,7 +148,6 @@ const Index = () => {
               onchange={(e) => changeHandler(e)}
               required={true}
             />
-
           </Form>
         </div>
       </div>

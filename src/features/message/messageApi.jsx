@@ -11,9 +11,8 @@ const messageApi = apiSlice.injectEndpoints({
 
       providesTags: ["getMessageWorker"],
       transformResponse: (response, meta, args) => {
-        
         const count = response.data.filter(message => message.read_status == 1).length
-        return {data: response.data, total: count}
+        return {data: response.data, total:count}
       },
     }),
 
@@ -25,7 +24,10 @@ const messageApi = apiSlice.injectEndpoints({
       },
 
       providesTags: ["getMessageRecruter"],
-      transformResponse: (response, meta, args) => response.data,
+      transformResponse: (response, meta, args) => {
+        const count = response.data.filter(message => message.read_status == 1).length
+        return {data: response.data, total:count}
+      },
     }),
 
     createMessage: builder.mutation({

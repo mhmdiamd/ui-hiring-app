@@ -69,13 +69,13 @@ const RecruterLogin = () => {
     >
       {error && (
         <div
-          class="alert alert-danger alert-dismissible fade show"
+          className="alert alert-danger alert-dismissible fade show"
           role="alert"
         >
           {error?.data?.message}
           <button
             type="button"
-            class="btn-close"
+            className="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
           ></button>
@@ -114,7 +114,7 @@ const RecruterLogin = () => {
             Forgot Password?
           </Link>
           <Form.Control
-            className={"btn btn-warning"}
+            className={"btn bg-purple text-light"}
             type="submit"
             value="Login"
           />
@@ -123,7 +123,7 @@ const RecruterLogin = () => {
         <span className={"text-center d-block mt-2"}>
           Already haven't account?{" "}
           <Link
-            className="text-warning text-decoration-none"
+            className="text-purple text-decoration-none"
             href="/register/recruter"
           >
             Register Here
