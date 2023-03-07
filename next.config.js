@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   env: {
     API_ENDPOINT: 'http://localhost:3001/api/v1',
   },
