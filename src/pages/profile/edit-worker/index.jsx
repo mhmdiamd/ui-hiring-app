@@ -254,7 +254,7 @@ const EditWorker = () => {
           <div className="col-12 d-flex flex-wrap gap-2 mb-2">
             {worker?.worker_skills?.map((skill, i) => {
                 return (
-                  <div className="bg-warning px-3 rounded py-1 btn-warning text-light d-flex align-items-center gap-2">
+                  <div key={i} className="bg-warning px-3 rounded py-1 btn-warning text-light d-flex align-items-center gap-2">
                     <span className={'p-0 pb-1'}>{skill.skill}</span>
                     <i className={`${style.deleteSkill} fa-solid fa-xmark text-light`} onClick={(e) => deleteHandlerWorkerSkill(skill.id)} ></i>
                   </div>
@@ -382,42 +382,40 @@ const EditWorker = () => {
             <div className={`col-12`}>
               <span className={"d-block mb-2"}>Type Portofolio</span>
               <div className="mb-3">
-                {["radio"].map((type) => (
-                  <div key={`inline-${type}`} className="mb-3 d-flex gap-2">
-                    <span className={"border border-1 py-2 px-3"}>
-                      <Form.Check
-                        inline
-                        label="Mobile App"
-                        name="group1"
-                        type={type}
-                        value={"mobile"}
-                        onChange={(e) =>
-                          setWorkerPortofolio((prev) => ({
-                            ...prev,
-                            type: e.target.value,
-                          }))
-                        }
-                        id={`inline-${type}-1`}
-                      />
-                    </span>
-                    <span className={"border border-1 p-2"}>
-                      <Form.Check
-                        inline
-                        label="Web App"
-                        name="group1"
-                        type={type}
-                        value={"web"}
-                        onChange={(e) =>
-                          setWorkerPortofolio((prev) => ({
-                            ...prev,
-                            type: e.target.value,
-                          }))
-                        }
-                        id={`inline-${type}-2`}
-                      />
-                    </span>
-                  </div>
-                ))}
+                <div className="mb-3 d-flex gap-2">
+                  <span className={"border border-1 py-2 px-3"}>
+                    <Form.Check
+                      inline
+                      label="Mobile App"
+                      name="group1"
+                      type={"radio"}
+                      value={"mobile"}
+                      onChange={(e) =>
+                        setWorkerPortofolio((prev) => ({
+                          ...prev,
+                          type: e.target.value,
+                        }))
+                      }
+                      id={`inline-radio-1`}
+                    />
+                  </span>
+                  <span className={"border border-1 p-2"}>
+                    <Form.Check
+                      inline
+                      label="Web App"
+                      name="group1"
+                      type={"radio"}
+                      value={"web"}
+                      onChange={(e) =>
+                        setWorkerPortofolio((prev) => ({
+                          ...prev,
+                          type: e.target.value,
+                        }))
+                      }
+                      id={`inline-radio-2`}
+                    />
+                  </span>
+                </div>
               </div>
             </div>
             <div className={`col-12`}>
