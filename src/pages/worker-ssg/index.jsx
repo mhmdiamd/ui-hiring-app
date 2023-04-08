@@ -9,16 +9,16 @@ import Swal from "sweetalert2";
 import { showLoading } from "@/common/loadingHandler";
 import { useRouter } from "next/router";
 
-const Index = ({workers}) => {
+const Index = () => {
   const router = useRouter();
   const [search, serSearch] = useState("");
-  // const { data: workers, isLoading } = useGetAllWorkerQuery({
-  //   search: router?.query?.search,
-  //   page: router?.query?.page,
-  //   sortBy: router?.query?.sortBy,
-  //   sort: router?.query?.sort,
-  //   limit: router?.query?.limit
-  // });
+  const { data: workers, isLoading } = useGetAllWorkerQuery({
+    search: router?.query?.search,
+    page: router?.query?.page,
+    sortBy: router?.query?.sortBy,
+    sort: router?.query?.sort,
+    limit: router?.query?.limit
+  });
 
 
   const changePageHandler = (e, i) => {
@@ -89,15 +89,15 @@ const Index = ({workers}) => {
   );
 };
 
-export async function getStaticProps() {
-  const response = await fetch(`http://localhost:3001/api/v1/workers?limit=5`);
-  const workers = await response.json();
+// export async function getStaticProps() {
+//   const response = await fetch(`http://localhost:3001/api/v1/workers?limit=5`);
+//   const workers = await response.json();
 
-  // Pass data to the page via props
-  return {
-    props: {
-      workers,
-    },
-  };
-}
+//   // Pass data to the page via props
+//   return {
+//     props: {
+//       workers,
+//     },
+//   };
+// }
 export default Index;
