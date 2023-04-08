@@ -1,5 +1,4 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import { useRouter } from 'next/router'
 import { setCredentials, logout } from './authSlice'
 
 const baseQuery = fetchBaseQuery({

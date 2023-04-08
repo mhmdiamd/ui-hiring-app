@@ -168,14 +168,6 @@ const LandingPage = () => {
               <CardOpinion key={worker.id} data={worker} i={i} />
             </SwiperSlide>
           ))}
-
-          <SwiperSlide>
-            <CardOpinion data={{ name: "Muhamad Farhan" }} i={1} />
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <CardOpinion data={{ name: "Muhamad Dhia Ramy" }} i={2} />
-          </SwiperSlide>
         </Swiper>
       </SectionContent>
 
