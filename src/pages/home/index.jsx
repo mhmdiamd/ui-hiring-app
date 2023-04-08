@@ -202,16 +202,4 @@ const LandingPage = () => {
   );
 };
 
-// export async function getServerSideProps() {
-//   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_ENDPOINT}/workers?limit=5`);
-//   const workers = await response.json();
-
-//   // Pass data to the page via props
-//   return {
-//     props: {
-//       workers,
-//     },
-//   };
-// }
-
 export default LandingPage;
