@@ -5,9 +5,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  env: {
-    API_ENDPOINT: 'http://localhost:3001/api/v1',
-  },
   images: {
     remotePatterns: [
       {
