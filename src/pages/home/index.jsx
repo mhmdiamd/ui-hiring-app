@@ -165,7 +165,7 @@ const LandingPage = () => {
           modules={[Pagination]}
           className="mySwiper p-3"
         >
-          {workers.data.map((worker, i) => (
+          {workers?.map((worker, i) => (
             <SwiperSlide key={worker.id}>
               <CardOpinion key={worker.id} data={worker} i={i} />
             </SwiperSlide>
