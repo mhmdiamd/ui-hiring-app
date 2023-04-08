@@ -59,7 +59,7 @@ const WorkerCardList = ({ data }) => {
         </div>
         <div className="col-9 d-none offset-sm-3 offset-md-0 col-md-auto d-sm-flex align-items-center">
           <Link
-            href={`/worker-ssg/${data.id}`}
+            href={`/worker/${data.id}`}
             className={"btn text-light bg-purple me-5"}
           >
             See Profile
