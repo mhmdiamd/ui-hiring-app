@@ -15,8 +15,11 @@ import "swiper/css/pagination";
 // import required  
 import { Pagination } from "swiper";
 import Image from "next/image";
+import { useGetAllWorkerQuery } from "@/features/worker/workerApi";
 
-const LandingPage = ({ workers }) => {
+const LandingPage = () => {
+  const { data: workers } = useGetAllWorkerQuery({ limit: 5 })
+
   return (
     <BaseTemplate>
       <SectionContent
@@ -135,7 +138,7 @@ const LandingPage = ({ workers }) => {
             />
             <div className={`${style.bgSpiral}`}></div>
             <div className={`${style.photoAccessories3}`}></div>
-           
+
           </div>
         </div>
       </SectionContent>
@@ -166,14 +169,14 @@ const LandingPage = ({ workers }) => {
             <SwiperSlide key={worker.id}>
               <CardOpinion key={worker.id} data={worker} i={i} />
             </SwiperSlide>
-          ))} 
+          ))}
 
           <SwiperSlide>
-            <CardOpinion data={{name : "Muhamad Farhan"}} i={1} />
+            <CardOpinion data={{ name: "Muhamad Farhan" }} i={1} />
           </SwiperSlide>
 
           <SwiperSlide>
-            <CardOpinion data={{name : "Muhamad Dhia Ramy"}} i={2} />
+            <CardOpinion data={{ name: "Muhamad Dhia Ramy" }} i={2} />
           </SwiperSlide>
         </Swiper>
       </SectionContent>
@@ -201,16 +204,16 @@ const LandingPage = ({ workers }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_ENDPOINT}/workers?limit=5`);
-  const workers = await response.json();
+// export async function getServerSideProps() {
+//   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_ENDPOINT}/workers?limit=5`);
+//   const workers = await response.json();
 
-  // Pass data to the page via props
-  return {
-    props: {
-      workers,
-    },
-  };
-}
+//   // Pass data to the page via props
+//   return {
+//     props: {
+//       workers,
+//     },
+//   };
+// }
 
 export default LandingPage;
