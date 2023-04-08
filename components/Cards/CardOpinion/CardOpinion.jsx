@@ -1,18 +1,21 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import style from "./CardOpinion.module.css";
 
-function CardOpinion({ data }) {
+function CardOpinion({ data, i }) {
+
+  const staticOpinion = [
+    'Hire Job is very helpful in finding a suitable job. The process is easy and the customer support team is responsive. Thank you Hiring Jobs!',
+    'I am very impressed with Hire Job! The system is very easy to use and I can find suitable jobs easily. The customer support team was also very helpful in answering my questions.',
+    'I highly recommend Hire Job for job seekers. The system is very efficient and I get many job opportunities according to my skills.'
+  ]
+
   return (
-    <Card className={`${style.card} border-0 shadow px-4 py-4`}>
+    <Card className={`${style.card} border-0 shadow px-4 pt-4 pb-3`}>
       <Card.Img
         className={`${style.userPhoto} mx-auto rounded-circle`}
         variant="top"
-        src={data?.photo == 'photodefault.jpg' ? '/photodefault.png' : data?.photo}
+        src={`https://source.unsplash.com/random/120x12${0 + i}/?man`}
       />
       <span
         className={`${style.editUser} d-block text-center text-secondary pt-1`}
@@ -21,8 +24,7 @@ function CardOpinion({ data }) {
         <Card.Title>{data.name}</Card.Title>
         <Card.Subtitle className="mb-2">{data.jobdesk}</Card.Subtitle>
         <Card.Text className={`text-muted`}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry
+          {staticOpinion[i]}
         </Card.Text>
       </Card.Body>
     </Card>

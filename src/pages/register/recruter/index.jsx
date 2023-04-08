@@ -66,7 +66,7 @@ const RecruterRegister = () => {
   }, [isLoading, isSuccess, isError])
 
   return (
-    <AuthenticationLayout title={'Hello, Gawpeople'} description={"Hei, jangan sampai HRD-nya ketinggalan zaman ya! Daftarkan dirimu sekarang di website ini, siapa tahu kamu akan menemukan calon karyawan yang cerdas dan berbakat seperti Spongebob yang selalu punya ide brilian untuk Krusty Krab!"}>
+    <AuthenticationLayout title={'Hello, Gawpeople'} description={"Hey, don't let the HRD be outdated! Register now on this website, who knows you will find a smart and talented employee like Spongebob who always has brilliant ideas for the Krusty Krab!"}>
       <Form onSubmit={registerHandler} className='pb-4'>
         {recruterForm.map((recruter, i) => (
            
@@ -94,10 +94,12 @@ const RecruterRegister = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formGroupPassword">
-          <Form.Control className={'btn btn-warning'}  type="submit" value="Register" />
+          <Form.Control className={'btn text-light bg-purple'}  type="submit" value="Register" />
         </Form.Group>
         
-        <span className={'text-center d-block mt-2'}>Already have account? <Link className="text-warning text-decoration-none" href="/login/recruter">Login Here</Link></span>
+        <span className={'text-center d-block mt-2'}>Already have account? <Link className=" text-decoration-none text-purple" href="/login/recruter">Login Here</Link></span>
+
+        <span className={'text-center d-block mt-2'}>Register as <span className='fw-semibold'>Worker</span>? <Link className="text-purple text-decoration-none" href="/register/worker">Register Here</Link></span>
         
       </Form>
     </AuthenticationLayout>

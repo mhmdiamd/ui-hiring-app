@@ -63,7 +63,7 @@ const WorkerLogin = () => {
     <AuthenticationLayout
       title={"Hello, Gawpeople"}
       description={
-        "Kamu belum login? Wah, kamu sama sekali tidak akan bisa dapat pekerjaan, apalagi mendapatkan hatiku yang hangat!"
+        "You haven't logged in yet? Wow, you won't be able to get a job at all, let alone get my warm heart!"
       }
     >
       {error && (
@@ -128,6 +128,16 @@ const WorkerLogin = () => {
             href="/register/worker"
           >
             Register Here
+          </Link>
+        </span>
+
+        <span className={"text-center d-block mt-2"}>
+          Login as <span className="fw-semibold">Recruter</span>?{" "}
+          <Link
+            className="text-purple text-decoration-none"
+            href="/login/recruter"
+          >
+            Login
           </Link>
         </span>
       </Form>

@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import { useGetWorkerByIdQuery } from "@/features/worker/workerApi";
 import { showLoading } from "@/common/loadingHandler";
 import Swal from 'sweetalert2'
-import { staticDate } from "lib/staticDate";
 
 const Index = () => {  
   const router = useRouter();
@@ -51,22 +50,41 @@ const Index = () => {
         </div>
         <div className="row mt-3">
           {menuActive == "portofolios" ? (
-            worker?.portofolios?.map((portofolio) => (
-              <div key={portofolio.id} className="col-4">
-                <CardPortofolio
-                  photo={"/portofolios/portofolio1 (2).png"}
-                  data={portofolio}
-                />  
+            <>
+              {/* Worker Portofolio */}
+              {worker?.portofolios?.map((portofolio) => (
+                <div key={portofolio.id} className="col-4">
+                  <CardPortofolio
+                    photo={"/portofolios/portofolio1 (2).png"}
+                    data={portofolio}
+                  />
+                </div>
+              ))}
+
+              <div className="col-4">
+                <CardPortofolio photo={"/portofolios/portofolio1 (3).png"} />
               </div>
-            ))
+              <div className="col-4">
+                <CardPortofolio photo={"/portofolios/portofolio1 (4).png"} />
+              </div>
+              <div className="col-4">
+                <CardPortofolio photo={"/portofolios/portofolio1 (5).png"} />
+              </div>
+              <div className="col-4">
+                <CardPortofolio photo={"/portofolios/portofolio1 (6).png"} />
+              </div>
+              <div className="col-4">
+                <CardPortofolio photo={"/portofolios/portofolio1 (7).png"} />
+              </div>
+            </>
           ) : (
             <>
-              {worker?.experiences?.map((experience, i) => (
+              {worker?.experiences?.map((experience) => (
                 <div className="col-12" key={experience.id}>
                   <CardExperience
                     id={experience.id}
                     data={experience}
-                    date={staticDate[1]}
+                    photo={"/portofolios/portofolio1 (1).png"}
                   />
                 </div>
               ))}

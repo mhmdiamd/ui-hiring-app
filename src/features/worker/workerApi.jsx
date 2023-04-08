@@ -53,7 +53,7 @@ const workerApi = apiSlice.injectEndpoints({
         body: data,
       }),
 
-      invalidatesTags: ['getDataUserLogin', 'getDataUserLogin'],
+      invalidatesTags: ['getDataUserLogin', "GetWorkerById"],
       transformResponse: (response, meta, args) => response.data,
     }),
   }),

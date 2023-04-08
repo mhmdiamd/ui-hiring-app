@@ -1,11 +1,8 @@
 import React from "react";
 import style from "./CardExperience.module.css";
-import Card from "react-bootstrap/Card";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-const CardExperience = ({ data, photo, descriptionVisibility, id }) => {
+const CardExperience = ({ data, photo, descriptionVisibility, id, date }) => {
+  console.log(date)
   return (
     <div
       key={id}
@@ -29,8 +26,7 @@ const CardExperience = ({ data, photo, descriptionVisibility, id }) => {
             <span>{data.company_name}</span>
             <div className={`d-none d-sm-block text-secondary`}>
               <span className={`text-muted`}>
-                <FontAwesomeIcon Icon={faLocationDot} /> July 2019 - January
-                2020
+                July 2019 - January 2020 - 
                 <span className={`ms-2`}>6 Months</span>
               </span>
             </div>

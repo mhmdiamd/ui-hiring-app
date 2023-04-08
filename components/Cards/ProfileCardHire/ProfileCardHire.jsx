@@ -23,9 +23,6 @@ const ProfileCard = ({data}) => {
           <FontAwesomeIcon className={`mt-3 me-2`} icon={faLocationDot} />
           {data?.address ? data.address : 'indonesia'}
         </Card.Text>
-        <p className={"mt-4 text-muted"}>
-          {data?.description}
-        </p>
 
         <span className={"fs-4 fw-semibold d-block mt-3"}>Skills</span>
         <div className={`d-flex flex-wrap gap-2 mt-2`}>

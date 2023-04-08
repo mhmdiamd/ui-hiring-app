@@ -162,11 +162,19 @@ const LandingPage = ({ workers }) => {
           modules={[Pagination]}
           className="mySwiper p-3"
         >
-          {workers.data.map((worker) => (
+          {workers.data.map((worker, i) => (
             <SwiperSlide key={worker.id}>
-              <CardOpinion key={worker.id} data={worker} />
+              <CardOpinion key={worker.id} data={worker} i={i} />
             </SwiperSlide>
           ))} 
+
+          <SwiperSlide>
+            <CardOpinion data={{name : "Muhamad Farhan"}} i={1} />
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <CardOpinion data={{name : "Muhamad Dhia Ramy"}} i={2} />
+          </SwiperSlide>
         </Swiper>
       </SectionContent>
 
@@ -194,7 +202,7 @@ const LandingPage = ({ workers }) => {
 };
 
 export async function getServerSideProps() {
-  const response = await fetch(`http://localhost:3001/api/v1/workers?limit=5`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_ENDPOINT}/workers?limit=5`);
   const workers = await response.json();
 
   // Pass data to the page via props
