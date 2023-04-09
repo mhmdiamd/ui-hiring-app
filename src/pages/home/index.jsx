@@ -165,7 +165,7 @@ const LandingPage = () => {
         >
           {workers?.data?.map((worker, i) => (
             <SwiperSlide key={worker.id}>
-              <CardOpinion key={worker.id} data={worker} i={i} />
+              <CardOpinion key={worker.id} data={worker}  i={i} />
             </SwiperSlide>
           ))}
         </Swiper>
