@@ -5,9 +5,9 @@ import style from "./CardOpinion.module.css";
 function CardOpinion({ data, i }) {
 
   const staticOpinion = [
-    'Hire Job is very helpful in finding a suitable job. The process is easy and the customer support team is responsive. Thank you Hiring Jobs!',
-    'I am very impressed with Hire Job! The system is very easy to use and I can find suitable jobs easily. The customer support team was also very helpful in answering my questions.',
-    'I highly recommend Hire Job for job seekers. The system is very efficient and I get many job opportunities according to my skills.'
+    'YuGawe is very helpful in finding a suitable job. The process is easy and the customer support team is responsive. Thank you Hiring Jobs!',
+    'I am very impressed with YuGawe! The system is very easy to use and I can find suitable jobs easily. The customer support team was also very helpful in answering my questions.',
+    'I highly recommend YuGawe for job seekers. The system is very efficient and I get many job opportunities according to my skills.'
   ]
 
   return (
