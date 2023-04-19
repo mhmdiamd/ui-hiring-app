@@ -117,9 +117,20 @@ NEXT_PUBLIC_BASE_URL_ENDPOINT = [BACKEND_URL]
 
   <tr>
     <td><img width="350px" src="./documentation/search-result.png"  border="0" border="0" alt="1" /></td>
+    <td><img width="350px" src="./documentation/update-recruiter.png"  border="0" border="0" alt="1" /></td>
   </tr>
    <tr>
     <td>Worker List</td>
+    <td>Update Recruiter</td>
+  </tr>
+
+  <tr>
+    <td><img width="350px" src="./documentation/profile-recruiter.png"  border="0" border="0" alt="1" /></td>
+    <td><img width="350px" src="./documentation/email-activation.png"  border="0" border="0" alt="1" /></td>
+  </tr>
+   <tr>
+    <td>Worker List</td>
+    <td>Email Activation</td>
   </tr>
 
 </table>

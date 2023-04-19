@@ -17,8 +17,16 @@ export const userApi = apiSlice.injectEndpoints({
       }),
       
       transformResponse: (response, meta, args) => response.data
+    }),
+    userRegister: builder.query({
+      query: ({token, role}) => ({
+        url: `${role}/verification/${token}`,
+        method: "GET",
+      }),
+      
+      transformResponse: (response, meta, args) => response.data
     })
   }),
 });
 
-export const { useGetDataUserLoginQuery, useLogoutUserLoginMutation } = userApi;
+export const { useGetDataUserLoginQuery, useLogoutUserLoginMutation, useUserRegisterQuery } = userApi;

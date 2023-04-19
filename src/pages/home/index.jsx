@@ -16,7 +16,7 @@ import Image from "next/image";
 import { useGetAllWorkerQuery } from "@/features/worker/workerApi";
 
 const LandingPage = () => {
-  const { data: workers } = useGetAllWorkerQuery({ limit: 5 })
+  const { data: workers } = useGetAllWorkerQuery({ limit: 3 })
 
   return (
     <BaseTemplate>

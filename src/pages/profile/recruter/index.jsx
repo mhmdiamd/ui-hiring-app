@@ -114,7 +114,7 @@ const Index = () => {
             <div className={"col-12 d-flex flex-column align-items-center"}>
               <span className={"fw-semibold fs-4"}>{recruter?.name}</span>
               <span className={"mt-2"}>{recruter?.company_field}</span>
-              <span className={"text-secondary mt-2"}>{recruter?.address}</span>
+              <span className={"text-secondary mt-2 w-50 text-center"}>{recruter?.address}</span>
             </div>
             <div className={"col-12 col-md-6 offset-0 offset-md-3 d-flex flex-column align-items-center"}>
               <p className={"text-secondary mx-auto text-center mt-2"}>
@@ -136,10 +136,10 @@ const Index = () => {
             </div>
     
             <div className={"col-8 col-md-4 offset-2 offset-md-5 d-flex flex-column"}>
-              <span className={"text-secondary mt-2"}>example@gmail.com</span>
-              <span className={"text-secondary mt-2"}>@instagram</span>
-              <span className={"text-secondary mt-2"}>+62 1982 1232 123</span>
-              <span className={"text-secondary mt-2"}>Muhamad Ilham Darmawan</span>
+              <span className={"text-secondary mt-2"}>shopee@gmail.com</span>
+              <span className={"text-secondary mt-2"}>@shopee</span>
+              <span className={"text-secondary mt-2"}>+62 1982 1232 1233</span>
+              <span className={"text-secondary mt-2"}>Shopee Company</span>
             </div>
           </div>
         </>
