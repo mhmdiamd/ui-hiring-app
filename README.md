@@ -71,7 +71,7 @@ cd ui-hiring-app
 npm install
 ```
 
-- Setup .env
+- Running Program
 ```
 npm run dev
 ```
